@@ -1,6 +1,8 @@
 import platform
 import os
-from utils.ANSI_color import *
+from utils.ANSI_color import get_color_str, print_color
+
+
 __version__ = '1.0'
 
 
@@ -32,6 +34,6 @@ def check_ui_library():
             print_color('Cannot process further due to lack of library', 'RED')
             exit()
     
-        
+
 def get_this_project_version():
     return __version__
