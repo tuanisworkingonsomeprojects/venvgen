@@ -1,6 +1,8 @@
 from utils.ANSI_color import *
 from utils.system_control_protocol import *
 from utils.option_manager import *
+from utils import macos_system_control as MacOS
+from utils import window_system_control as Windows
 
 import platform
 import os
@@ -41,13 +43,18 @@ def check_ui_library():
             exit()
 
 def sha256_generator():
-    return hashlib.sha256(str(random.randint(1, 10)).encode('utf-8')).hexdigest()
+    return hashlib.sha256(str(random.randint(-100000000000, 10000000000000)).encode('utf-8')).hexdigest()
     
 
 def menu_choice_process(user_answer, display_function):
-    
+    if check_system() == 'macos':
+        os_system_control = MacOS.create_venv
+    elif check_system() == 'win':
+        os_system_control = Windows.create_venv
+
+
     if user_answer == '1':
-        return option1(user_answer, display_function)
+        return option1(user_answer, display_function, system_contol = os_system_control)
 
 
 

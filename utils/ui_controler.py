@@ -1,8 +1,7 @@
 from utils.all_system_control import *
 from utils.ANSI_color import *
 from utils.system_control_protocol import *
-import random
-import hashlib
+from utils.string_processing import *
 
 
 
@@ -59,12 +58,12 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         print()
         
 
-        project_name = input(f'Create with requirements.txt (Y/n):{GO_UP_ONE_LINE}Project Name / Venv Name: ')
+        project_name = input(f'Libraries / Dependencies in requirements.txt (Y/n):{GO_UP_ONE_LINE}Project Name / Venv Name: ')
         print()
         print()
 
         if project_name == sha_256_str:
-            return 'asgjqpo3irht=0239r1p93q8yrtiogwehjknldfmbnq24[e0dp9touiq3fj1kqrmwefglobwdk.jsnfbvc efgdboqkelt;nrfg,bwopeust;dhjflgknwmepstdofgjblvkwelargjksfhdnw.vearspg]'
+            return GO_BACK_TO_MENU_PAGE
         else:
             return project_name
         
@@ -78,7 +77,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         print('Paste this to your answer to go back to main menu')
         print()
         print('Project Name / Venv Name: ' + kwargs['venv'])
-        yes_no_requirement = input(f'Create with requirements.txt (Y/n): ')
+        yes_no_requirement = input(f'Libraries / Dependencies in requirements.txt (Y/n): ')
 
         if yes_no_requirement == sha_256_str:
             return GO_BACK_TO_MENU_PAGE
@@ -98,8 +97,32 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         
         else:
             return None
+    elif step == 'library_manual_input':
 
+        if not first_time:
+            print(f'{get_color_str('Please fill in the Valid Answer', 'RED')}')
+        
+        sha_256_str = sha256_generator()
+        print(f'sha256: {sha_256_str}')
+        print('Paste this to your answer to go back to main menu')
+        print()
+        print('Project Name / Venv Name: ' + kwargs['venv'])
+        print(f'Libraries / Dependencies in requirements.txt (Y/n): n')
+        yes_no_libraries = input('Set up venv with libraries (Y/n): ')
 
+        if yes_no_libraries == sha_256_str:
+            return GO_BACK_TO_MENU_PAGE
+        
+        elif yes_no_libraries == 'Y' or yes_no_libraries == 'y':
+            libraries = input('Libraries: ')
+
+            if libraries == None or libraries == '':
+                return NO_LIBRARIES
+            elif libraries == sha_256_str:
+                return GO_BACK_TO_MENU_PAGE
+
+            libraries = str_to_list(libraries)
+            libraries = list_to_str(libraries, sep = ' ')
 
 
         return 'abc'
