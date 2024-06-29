@@ -23,6 +23,13 @@ def option1(user_answer, display_function, *args, **kwargs):
 
         if require_name == GO_BACK_TO_MENU_PAGE:
             return False
+        
+        if require_name != NO_REQUIREMENTS_FILE:
+            try:
+                with open(require_name, 'r') as f:
+                    f.readline()
+            except FileNotFoundError as e:
+                require_name = None
     
     if require_name == NO_REQUIREMENTS_FILE:
         first_time = True
@@ -43,6 +50,7 @@ def option1(user_answer, display_function, *args, **kwargs):
 
         return False
     else:
+
         kwargs['system_control'].create_venv(venv_name)
 
     
