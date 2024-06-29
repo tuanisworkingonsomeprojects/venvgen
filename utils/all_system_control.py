@@ -48,13 +48,13 @@ def sha256_generator():
 
 def menu_choice_process(user_answer, display_function):
     if check_system() == 'macos':
-        os_system_control = MacOS.create_venv
+        os_system_control = MacOS
     elif check_system() == 'win':
-        os_system_control = Windows.create_venv
+        os_system_control = Windows
 
 
     if user_answer == '1':
-        return option1(user_answer, display_function, system_contol = os_system_control)
+        return option1(user_answer, display_function, system_control = os_system_control)
 
 
 

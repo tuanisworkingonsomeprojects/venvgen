@@ -35,14 +35,14 @@ def option1(user_answer, display_function, *args, **kwargs):
             if libraries == GO_BACK_TO_MENU_PAGE:
                 return False
 
-        kwargs['system_control'].create_env(venv_name)
+        kwargs['system_control'].create_venv(venv_name)
 
         if libraries != NO_LIBRARIES:
             kwargs['system_control'].install_libraries(venv_name, libraries)
-            
+
 
         return False
     else:
-        kwargs['system_control'].create_env(venv_name)
+        kwargs['system_control'].create_venv(venv_name)
 
     
