@@ -45,7 +45,33 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
     print(f'         {get_color_str('Create New Project', 'GREEN')}            ')
     print()
 
-    if step == 'venv':
+
+
+
+    if step == 'project_directory':
+        if not first_time:
+            print(f'{get_color_str('Please fill in the Venv Name', 'RED')}')
+        
+        sha_256_str = sha256_generator()
+        print(f'sha256: {sha_256_str}')
+        print('Paste this to answer to go back to main menu')
+        print()
+        print()
+        print()
+        project_directory = input(f'Libraries / Dependencies in requirements.txt (Y/n):{GO_UP_ONE_LINE}Project Name / Venv Name:{GO_UP_ONE_LINE}Project Directory: ')
+        print()
+        print()
+        print()
+
+        if project_directory == sha_256_str:
+            return GO_BACK_TO_MENU_PAGE
+        else:
+            return project_directory
+
+
+
+
+    elif step == 'venv':
 
 
         if not first_time:
@@ -55,6 +81,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         print(f'sha256: {sha_256_str}')
         print('Paste this to answer to go back to main menu')
         print()
+        print('Project Directory: ' + kwargs['project_directory'])
         print()
         
 
@@ -76,6 +103,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         print(f'sha256: {sha_256_str}')
         print('Paste this to your answer to go back to main menu')
         print()
+        print('Project Directory: ' + kwargs['project_directory'])
         print('Project Name / Venv Name: ' + kwargs['venv'])
         yes_no_requirement = input(f'Libraries / Dependencies in requirements.txt (Y/n): ')
 
@@ -107,6 +135,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         print(f'sha256: {sha_256_str}')
         print('Paste this to your answer to go back to main menu')
         print()
+        print('Project Directory: ' + kwargs['project_directory'])
         print('Project Name / Venv Name: ' + kwargs['venv'])
         print(f'Libraries / Dependencies in requirements.txt (Y/n): n')
         yes_no_libraries = input('Set up venv with libraries (Y/n): ')

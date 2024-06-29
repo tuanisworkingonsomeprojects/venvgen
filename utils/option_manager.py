@@ -4,11 +4,22 @@ from utils.system_control_protocol import *
 
 
 def option1(user_answer, display_function, *args, **kwargs):
+    
+    first_time = True
+    project_directory = None
+
+    while first_time or (not first_time and (project_directory == None or project_directory == '')):
+        project_directory = display_function(first_time, 'project_directory')
+        first_time = False
+    
+        if project_directory == GO_BACK_TO_MENU_PAGE:
+            return False
+    
     first_time = True
     venv_name = None
     
     while first_time or (not first_time and (venv_name == None or venv_name == '')):
-        venv_name = display_function(first_time, 'venv')
+        venv_name = display_function(first_time, 'venv', project_directory = project_directory)
         first_time = False
 
         if venv_name == GO_BACK_TO_MENU_PAGE:
@@ -18,7 +29,7 @@ def option1(user_answer, display_function, *args, **kwargs):
     require_name = None
 
     while first_time or (not first_time and (require_name == None or require_name == '')):
-        require_name = display_function(first_time, 'requirement', venv = venv_name)
+        require_name = display_function(first_time, 'requirement', venv = venv_name, project_directory = project_directory)
         first_time = False
 
         if require_name == GO_BACK_TO_MENU_PAGE:
@@ -36,21 +47,21 @@ def option1(user_answer, display_function, *args, **kwargs):
         libraries = None
 
         while first_time or (not first_time and (libraries == None or libraries == '')):
-            libraries = display_function(first_time, 'library_manual_input', venv = venv_name)
+            libraries = display_function(first_time, 'library_manual_input', venv = venv_name, project_directory = project_directory)
             first_time = False
 
             if libraries == GO_BACK_TO_MENU_PAGE:
                 return False
 
-        kwargs['system_control'].create_venv(venv_name)
+        kwargs['system_control'].create_venv(project_directory, venv_name)
 
         if libraries != NO_LIBRARIES:
-            kwargs['system_control'].install_libraries(venv_name, libraries)
+            kwargs['system_control'].install_libraries(project_directory, venv_name, libraries)
 
 
         return False
     else:
 
-        kwargs['system_control'].create_venv(venv_name)
+        kwargs['system_control'].create_venv(project_directory, venv_name)
 
     
