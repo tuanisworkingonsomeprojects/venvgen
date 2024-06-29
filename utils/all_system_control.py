@@ -1,6 +1,12 @@
+from utils.ANSI_color import *
+from utils.system_control_protocol import *
+from utils.option_manager import *
+
 import platform
 import os
-from utils.ANSI_color import get_color_str, print_color
+import random
+import hashlib
+
 
 
 __version__ = '1.0'
@@ -31,9 +37,23 @@ def check_ui_library():
             exit()        
         else:
             print()
-            print_color('Cannot process further due to lack of library', 'RED')
+            print_color('Cannot process further due to the lack of library', 'RED')
             exit()
+
+def sha256_generator():
+    return hashlib.sha256(str(random.randint(1, 10)).encode('utf-8')).hexdigest()
     
+
+def menu_choice_process(user_answer, display_function):
+    
+    if user_answer == '1':
+        return option1(user_answer, display_function)
+
+
+
+
+
+
 
 def get_this_project_version():
     return __version__
