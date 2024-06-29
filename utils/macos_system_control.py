@@ -8,3 +8,5 @@ def clear_screen():
 def create_venv(project_name):
     os.system(create_venv + 'project_name')
 
+def install_libraries(venv, libraries):
+    os.system('source ' + venv + '/bin/activate\npip install ' + libraries)

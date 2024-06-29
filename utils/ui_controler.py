@@ -97,6 +97,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         
         else:
             return None
+        
     elif step == 'library_manual_input':
 
         if not first_time:
@@ -123,9 +124,18 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
 
             libraries = str_to_list(libraries)
             libraries = list_to_str(libraries, sep = ' ')
+        
+        elif yes_no_libraries == 'N' or yes_no_libraries == 'n':
+            return NO_LIBRARIES
+
+        else:
+            return None
 
 
-        return 'abc'
+        return libraries
+    
+
+
 
 def menu_screen():
     print(f'              {get_color_str('MENU', 'GREEN')}                     ')
