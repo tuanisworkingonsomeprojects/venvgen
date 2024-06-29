@@ -156,6 +156,7 @@ def menu_screen():
 
 
     if user_answer[0] == '4':
+        clear_screen()
         return True
     
     return end_program
