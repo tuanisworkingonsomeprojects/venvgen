@@ -50,7 +50,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
 
     if step == 'project_directory':
         if not first_time:
-            print(f'{get_color_str('Please fill in the Venv Name', 'RED')}')
+            print(f'{get_color_str('Please fill in the valid Directory Name', 'RED')}')
         
         sha_256_str = sha256_generator()
         print(f'sha256: {sha_256_str}')
@@ -65,10 +65,13 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
 
         if project_directory == sha_256_str:
             return GO_BACK_TO_MENU_PAGE
+
         else:
-            return project_directory
-
-
+            directory_exist = os.system(f'cd {project_directory}')
+            if directory_exist == 0:
+                return project_directory
+            else:
+                return None
 
 
     elif step == 'venv':
@@ -117,6 +120,12 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
                 return NO_REQUIREMENTS_FILE
             elif requirement_path == sha_256_str:
                 return GO_BACK_TO_MENU_PAGE
+            else:
+                try:
+                    with open(requirement_path, 'r') as f:
+                        f.readline()
+                except FileNotFoundError as e:
+                    return None
 
             return requirement_path
         

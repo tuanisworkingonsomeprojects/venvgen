@@ -10,3 +10,6 @@ def create_venv(project_directory, project_name):
 
 def install_libraries(project_directory, venv, libraries):
     os.system(f'cd "{project_directory}"\n' + 'source ' + venv + '/bin/activate\npip install ' + libraries)
+
+def install_libraries_with_requirement(project_directory, venv, requirement_file):
+    os.system(f'cd "{project_directory}"\n' + 'source ' + venv + '/bin/activate\npip install -r ' + requirement_file)
