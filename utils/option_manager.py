@@ -61,7 +61,7 @@ def option1(user_answer, display_function, *args, **kwargs):
     
     if require_name != NO_REQUIREMENTS_FILE:
         kwargs['system_control'].create_venv(project_directory, venv_name)
-        # TODO: add install_library_with_requirements
+        kwargs['system_control'].install_libraries_with_requirement(project_directory, venv_name, require_name)
 
 
     else:

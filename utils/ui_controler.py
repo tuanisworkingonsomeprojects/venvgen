@@ -67,7 +67,7 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
             return GO_BACK_TO_MENU_PAGE
 
         else:
-            directory_exist = os.system(f'cd {project_directory}')
+            directory_exist = os.system(f'cd "{project_directory}"')
             if directory_exist == 0:
                 return project_directory
             else:
