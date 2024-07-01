@@ -3,7 +3,7 @@ from utils.system_control_protocol import *
 
 
 
-def option1(user_answer, display_function, *args, **kwargs):
+def option1(display_function, *args, **kwargs):
     
     first_time = True
     project_directory = None
@@ -69,3 +69,5 @@ def option1(user_answer, display_function, *args, **kwargs):
         kwargs['system_control'].create_venv(project_directory, venv_name)
 
     
+def option2(display_function, *args, **kwargs):
+    pass

@@ -54,8 +54,9 @@ def menu_choice_process(user_answer, display_function):
 
 
     if user_answer == '1':
-        return option1(user_answer, display_function, system_control = os_system_control)
-
+        return option1(display_function, system_control = os_system_control)
+    elif user_answer == '2':
+        return option2(display_function, system_control = os_system_control)
 
 
 
