@@ -44,6 +44,8 @@ def check_ui_library():
 
 def sha256_generator():
     return hashlib.sha256(str(random.randint(-100000000000, 10000000000000)).encode('utf-8')).hexdigest()
+
+
     
 
 def menu_choice_process(user_answer, display_function):
@@ -54,9 +56,9 @@ def menu_choice_process(user_answer, display_function):
 
 
     if user_answer == '1':
-        return option1(display_function, system_control = os_system_control)
+        return option1(display_function[0], system_control = os_system_control)
     elif user_answer == '2':
-        return option2(display_function, system_control = os_system_control)
+        return option2(display_function[1], system_control = os_system_control)
 
 
 

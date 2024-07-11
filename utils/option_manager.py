@@ -1,10 +1,14 @@
 from utils.system_control_protocol import *
-
+import sqlite3 
+from utils.database_manager import *
+from datetime import date
 
 
 
 def option1(display_function, *args, **kwargs):
-    
+    con = sqlite3.connect('venv_database.db')
+    check_database(con)
+
     first_time = True
     project_directory = None
 
@@ -62,12 +66,25 @@ def option1(display_function, *args, **kwargs):
     if require_name != NO_REQUIREMENTS_FILE:
         kwargs['system_control'].create_venv(project_directory, venv_name)
         kwargs['system_control'].install_libraries_with_requirement(project_directory, venv_name, require_name)
+        insert_into_venv_info_sql(con, project_path = project_directory, venv_name = venv_name, created_date = date.today(), require_file = require_name)
+        
 
 
     else:
-
         kwargs['system_control'].create_venv(project_directory, venv_name)
+        insert_into_venv_info_sql(con, project_path = project_directory, venv_name = venv_name, created_date = date.today(), require_file = None)
 
+    con.close()
     
 def option2(display_function, *args, **kwargs):
+    con = sqlite3.connect('venv_database.db')
+
+    check_database(con)
+
+
+
+
+
+
+
     pass

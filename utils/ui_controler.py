@@ -42,7 +42,7 @@ def introduction_screen():
 
 def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs):
     introduction_screen()
-    print(f'         {get_color_str('Create New Project', 'GREEN')}            ')
+    print(f'            {get_color_str('Create New VENV', 'GREEN')}            ')
     print()
 
 
@@ -173,6 +173,30 @@ def create_new_project_screen(first_time = True, step = 'venv', *args, **kwargs)
         return libraries
     
 
+def view_venv_info_screen(first_time = True, step = None, *arg, **kwargs):
+    introduction_screen()
+    print(f'         {get_color_str('View VENV Details', 'GREEN')}            ')
+    print()
+
+    if step == 'view_venv_menu':
+        view_choice = [inquirer.List('view_choice', message = 'Options', choices = [
+            '1. View All Venv',
+            '2. View 10 Recently Created Venv',
+            '3. Edit Venv',
+            '4. Back'
+        ], default = '1. View All Venv')]
+
+        user_answer = inquirer.prompt(view_choice, theme = GreenPassion())['view_choice']
+
+        if user_answer[0] == '4':
+            clear_screen()
+            return False
+        
+        return user_answer[0]
+
+
+
+
 
 
 def menu_screen():
@@ -180,13 +204,15 @@ def menu_screen():
     print()
     menu_choice = [inquirer.List('menu_choice', message = 'Options', choices = [
         '1. Create New Project',
-        '2. View All Created Virtual Enviroment',
+        '2. View Created Virtual Enviroment',
         '3. Settings',
         '4. Exit'
     ], default = '1. Create New Project')]
     user_answer = inquirer.prompt(menu_choice, theme = GreenPassion())['menu_choice']
 
-    end_program = menu_choice_process(user_answer[0], create_new_project_screen)
+    display_functions = [create_new_project_screen, view_venv_info_screen]
+
+    end_program = menu_choice_process(user_answer[0], display_functions)
     # print(user_answer[0])
 
 
