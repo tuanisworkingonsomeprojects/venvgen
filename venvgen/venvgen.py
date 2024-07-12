@@ -4,7 +4,7 @@ from .utils import all_system_control
 import warnings
 from .utils.package_directory_manager import *
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 
 def main():
