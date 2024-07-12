@@ -163,3 +163,7 @@ test_lib_folder/*
 run.py
 setup.py
 venvgen/database
+
+ProjectGenerator/Scripts/*
+ProjectGenerator/pyvenv.cfg
+
