@@ -17,4 +17,4 @@ def get_database_dir():
     return os.path.join(get_parent_directory(get_package_path()), 'database')
 
 def get_database_path():
-    return get_database_dir() + "/venv_database.db"
+    return os.path.join(get_database_dir(), "venv_database.db")
