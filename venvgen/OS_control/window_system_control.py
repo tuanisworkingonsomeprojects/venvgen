@@ -3,6 +3,10 @@ import subprocess
 # from commands.window_command import *
 from ..commands.window_command import *
 
+
+def get_os_name():
+    return 'Windows'
+
 def clear_screen():
     return_status = os.system(clear_screen_command)
 

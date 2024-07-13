@@ -2,6 +2,9 @@ import os
 # from commands.macos_command import *
 from ..commands.macos_command import *
 
+def get_os_name():
+    return 'MacOS'
+
 def clear_screen():
     return_status = os.system(clear_screen_command)
 

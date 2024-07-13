@@ -1,6 +1,9 @@
 print('Importing system check...', end = '                                             \r')
 from . import system_check
-system_check.check_ui_library()
+
+system_check.init_check()
+
+OS = system_check.check_os()
 
 
 print('Importing system control...', end = '                                          \r')

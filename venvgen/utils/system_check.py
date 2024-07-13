@@ -1,8 +1,11 @@
 from .ANSI_color import get_color_str, print_color
+from .database_manager import check_database
+
 import subprocess
 import platform
 # from ..OS_control import macos_system_control as MacOS, window_system_control as Windows
 from types import ModuleType
+
 
 def check_os() -> ModuleType:
     if platform.system() == 'Darwin':
@@ -75,5 +78,6 @@ def check_ui_library():
             print_color('Cannot process further due to the lack of library', 'RED')
             exit()
 
-def check_process():
+def init_check():
     check_ui_library()
+    check_database()

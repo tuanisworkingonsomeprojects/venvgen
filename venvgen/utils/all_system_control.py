@@ -6,8 +6,6 @@
 
 from .system_check import check_os
 OS = check_os()
-OS.clear_screen()
-
 from .ANSI_color import ANSI_color_dict, get_color_str, print_color
 # from .system_control_protocol import *
 from .option_manager import option1, option2
@@ -26,15 +24,10 @@ __version__ = None
 
 def check_system():
     create_database_dir()
-    if platform.system() == 'Darwin':
-        con = connect_check_database(get_database_path())
-        check_venv_connection(con, OS)
-        con.close()
+    check_venv_connection(OS)
+    if platform.system() == 'Darwin': 
         return 'macos'
     elif platform.system() == 'win32' or platform.system() == 'Windows':
-        con = connect_check_database(get_database_path())
-        check_venv_connection(con, OS)
-        con.close()
         return 'win'
     
     
@@ -108,16 +101,10 @@ def sha256_generator():
     
 
 def menu_choice_process(user_answer, display_function):
-    if check_system() == 'macos':
-        os_system_control = MacOS
-    elif check_system() == 'win':
-        os_system_control = Windows
-
-
     if user_answer == '1':
-        return option1(display_function[0], system_control = os_system_control)
+        return option1(display_function[0], system_control = OS)
     elif user_answer == '2':
-        return option2(display_function[1], system_control = os_system_control)
+        return option2(display_function[1], system_control = OS)
 
 
 

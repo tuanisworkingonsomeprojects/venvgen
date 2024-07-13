@@ -6,6 +6,7 @@ from datetime import datetime
 
 # from utils.sql_command import *
 
+from .package_directory_manager import get_database_path, create_database_dir
 from .sql_command import *
 from .ANSI_color import *
 
@@ -15,28 +16,44 @@ Database:
 venv_info(id, project_path, venv_name, created_date, requirement_file, connect_status)
 
 '''
+if __name__ != '__main__':
+    # Everytime we start up the program it will create a database directory
+    create_database_dir()
 
-def check_database(con):
+
+def check_database():
+    # If the database directory don't exist this function will create one, else pass
+    create_database_dir()
+    con = sqlite3.connect(get_database_path())
     cur = con.cursor()
-    cur.execute(create_venv_info_sql)
 
-def connect_check_database(database_path: str):
-    con = sqlite3.connect(database_path)
-    check_database(con)
+    # If the require tables are not created, these functions will create them
+    cur.execute(create_venv_info_sql)
+    con.close()
+
+# It is RECOMMENDED to use this function to safely connect to the database
+def connect_check_database():
+    # This will return the connection to the database but it will check if the database is availabe first
+
+    check_database()
+    con = sqlite3.connect(get_database_path())
     return con
 
-def insert_data_into_venv_info(con: sqlite3.Connection, *args, **kwargs):
+def insert_data_into_venv_info(*args, **kwargs):
+    con = connect_check_database()
     cur = con.cursor()
     cur.execute(insert_into_venv_info_sql, (kwargs['project_path'], kwargs['venv_name'], kwargs['created_date'], kwargs['requirement_file'], kwargs['connect_status'], kwargs['last_modified']))
     con.commit()
 
-def update_data_venv_info(con: sqlite3.Connection, *args, **kwargs):
+def update_data_venv_info(*args, **kwargs):
+    con = connect_check_database()
     cur = con.cursor()
     cur.execute(update_connect_status_venv_info_sql, (kwargs['connect_status'], kwargs['last_modified'], kwargs['venv_name']))
     con.commit()
 
 
-def check_venv_connection(con: sqlite3.Connection, system_control: types.ModuleType, *args, **kwargs):
+def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
+    con = connect_check_database()
     cur = con.cursor()
     result = cur.execute(select_all_venv_view)
     venv_info = result.fetchall()
@@ -45,4 +62,5 @@ def check_venv_connection(con: sqlite3.Connection, system_control: types.ModuleT
         code_status = system_control.activate_venv(project_path, venv_name)
         if code_status != 0 and connect_status != get_color_str('no', 'RED'):
             update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_name = venv_name, last_modified = datetime.now())
+    con.close()
 

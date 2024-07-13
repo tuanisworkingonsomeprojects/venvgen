@@ -10,7 +10,7 @@ import pandas as pd
 
 def option1(display_function, *args, **kwargs):
     print(get_database_dir())
-    con = connect_check_database(get_database_path())
+    con = connect_check_database()
 
     first_time = True
     project_directory = None
@@ -95,7 +95,7 @@ def option2_2(display_function, con):
     return False
 
 def option2(display_function, *args, **kwargs):
-    con = connect_check_database(get_database_path())
+    con = connect_check_database()
 
     
 
