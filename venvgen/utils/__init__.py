@@ -1,3 +1,8 @@
+print('Importing system check...', end = '                                             \r')
+from . import system_check
+system_check.check_ui_library()
+
+
 print('Importing system control...', end = '                                          \r')
 from . import all_system_control
 

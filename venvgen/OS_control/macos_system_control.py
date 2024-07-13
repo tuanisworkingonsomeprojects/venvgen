@@ -16,3 +16,6 @@ def install_libraries_with_requirement(project_directory, venv, requirement_file
 
 def activate_venv(project_directory, venv):
     return os.system(f'cd "{project_directory}"\n' + 'source ' + venv + '/bin/activate\n')
+
+def install_system_library(library):
+    os.system(f'pip install {library}')

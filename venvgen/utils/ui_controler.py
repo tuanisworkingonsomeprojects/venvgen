@@ -28,10 +28,10 @@ if __name__ != '__main__':
     print('Checking Operating System...')
     if check_system() == 'macos':
         # from utils.macos_system_control import *
-        from .macos_system_control import *
+        from ..OS_control.macos_system_control import *
     elif check_system() == 'win':
         # from utils.window_system_control import *
-        from .window_system_control import *
+        from ..OS_control.window_system_control import *
     # from utils.ANSI_line_modification import *
     from .ANSI_line_modification import *
     
