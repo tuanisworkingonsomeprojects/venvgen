@@ -9,46 +9,48 @@ import re
 
 
 from .all_system_control import *
-from .ANSI_color import *
 from .system_control_protocol import *
 from .string_processing import *
 from typing import Literal
 
+from . import OS
+from .ANSI_color import get_color_str
+from .system_check import get_this_project_version, refresh_check, check_dir_connectivity
+from .ANSI_line_modification import *
+import inquirer
+from inquirer.themes import GreenPassion
 
 
+# if __name__ != '__main__':
+#     print('\n\n\n\n\n\n\n\n\n')
+#     print('Checking UI system...')
+#     check_ui_library()
+#     import inquirer
+#     from inquirer.themes import GreenPassion
 
-
-if __name__ != '__main__':
-    print('\n\n\n\n\n\n\n\n\n')
-    print('Checking UI system...')
-    check_ui_library()
-    import inquirer
-    from inquirer.themes import GreenPassion
-
-    print('Checking Operating System...')
-    if check_system() == 'macos':
-        # from utils.macos_system_control import *
-        from ..OS_control.macos_system_control import *
-    elif check_system() == 'win':
-        # from utils.window_system_control import *
-        from ..OS_control.window_system_control import *
-    # from utils.ANSI_line_modification import *
-    from .ANSI_line_modification import *
+#     print('Checking Operating System...')
+#     if check_system() == 'macos':
+#         # from utils.macos_system_control import *
+#         from ..OS_control.macos_system_control import *
+#     elif check_system() == 'win':
+#         # from utils.window_system_control import *
+#         from ..OS_control.window_system_control import *
+#     # from utils.ANSI_line_modification import *
+#     from .ANSI_line_modification import *
     
 
 def test_name():
     print(__name__)
 
-
 def introduction_screen():
-    check_system()
-    clear_screen()
+    refresh_check()
+    OS.clear_screen()
     print('_______________________________________')
     print(f'        {get_color_str('Python VENV Generator', 'GREEN')}     ')
     print()
     print(f' This Version:\t{get_this_project_version()}')
     print(' Created By:\tNguyen Tuan')
-    print(f' Your OS:\t{check_system()}')
+    print(f' Your OS:\t{OS.get_os_name()}')
     print('_______________________________________')
 
 
@@ -85,8 +87,8 @@ def create_new_project_screen(first_time = True, step: Literal['project_director
             return GO_BACK_TO_MENU_PAGE
 
         else:
-            directory_exist = os.system(f'cd "{project_directory}"')
-            if directory_exist == 0:
+            directory_exist = check_dir_connectivity(project_directory)
+            if directory_exist:
                 return project_directory
             else:
                 return None
@@ -256,7 +258,7 @@ def menu_screen():
 
 
     if user_answer[0] == '4':
-        clear_screen()
+        OS.clear_screen()
         return True
     
     return end_program

@@ -1,10 +1,10 @@
 from .ANSI_color import get_color_str, print_color
-from .database_manager import check_database
-
-import subprocess
+from .database_manager import check_database, check_venv_connection
+from ..venvgen_version import __version__
 import platform
 # from ..OS_control import macos_system_control as MacOS, window_system_control as Windows
 from types import ModuleType
+import os
 
 
 def check_os() -> ModuleType:
@@ -81,3 +81,12 @@ def check_ui_library():
 def init_check():
     check_ui_library()
     check_database()
+
+def refresh_check():
+    check_venv_connection(check_os())
+
+def get_this_project_version():
+    return __version__
+
+def check_dir_connectivity(dir):
+    return os.path.exists(dir)
