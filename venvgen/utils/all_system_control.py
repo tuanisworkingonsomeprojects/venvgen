@@ -15,6 +15,7 @@ import platform
 import os
 import random
 import hashlib
+import subprocess
 
 
 __version__ = None
@@ -49,7 +50,47 @@ def check_ui_library():
         print('The library is Required for the program to run')
         userChoice = input('Your choice (Y/n): ')
         if userChoice == 'Y' or userChoice == 'y':
-            os.system('pip install inquirer')
+            subprocess.run('pip install inquirer'.split(), shell = True)
+            print()
+            print('Please rerun the program after installation')
+            exit()        
+        else:
+            print()
+            print_color('Cannot process further due to the lack of library', 'RED')
+            exit()
+
+    try:
+        import pandas
+    except ModuleNotFoundError as e:
+        print()
+        print(f'{get_color_str('pandas', 'RED')} module have not yet installed')
+        print()
+        print('Do you want to download it to your machine?')
+        print()
+        print('The library is Required for the program to run')
+        userChoice = input('Your choice (Y/n): ')
+        if userChoice == 'Y' or userChoice == 'y':
+            subprocess.run('pip install inquirer'.split(), shell = True)
+            print()
+            print('Please rerun the program after installation')
+            exit()        
+        else:
+            print()
+            print_color('Cannot process further due to the lack of library', 'RED')
+            exit()
+
+    try:
+        import tabulate
+    except ModuleNotFoundError as e:
+        print()
+        print(f'{get_color_str('tabulate', 'RED')} module have not yet installed')
+        print()
+        print('Do you want to download it to your machine?')
+        print()
+        print('The library is Required for the program to run')
+        userChoice = input('Your choice (Y/n): ')
+        if userChoice == 'Y' or userChoice == 'y':
+            subprocess.run('pip install tabulate'.split(), shell = True)
             print()
             print('Please rerun the program after installation')
             exit()        
