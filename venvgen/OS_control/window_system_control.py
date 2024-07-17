@@ -11,8 +11,8 @@ def clear_screen():
     return_status = os.system(clear_screen_command)
 
 def create_venv(project_directory, project_name):
-    project_directory = project_directory.replace('\\', '\\\\')
-    os.system(f'cd "{project_directory}"\n' + CREATE_VENV + project_name)
+    # project_directory = project_directory.replace('\\', '\\\\')
+    subprocess.run(['cd', project_directory, 'python', '-m', 'venv', project_name], shell = True)
     
 
 def install_libraries(project_directory, venv, libraries):

@@ -193,7 +193,7 @@ def create_new_project_screen(first_time = True, step: Literal['project_director
         return libraries
     
 
-def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv'] = None, *arg, **kwargs):
+def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv', 'display_latest_create_date'] = None, *arg, **kwargs):
     introduction_screen()
     print_current_page('menu > view venv details')
     print(f'         {get_color_str('View VENV Details', 'GREEN')}            ')
