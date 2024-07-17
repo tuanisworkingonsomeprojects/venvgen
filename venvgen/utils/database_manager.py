@@ -16,10 +16,6 @@ Database:
 venv_info(id, project_path, venv_name, created_date, requirement_file, connect_status)
 
 '''
-if __name__ != '__main__':
-    # Everytime we start up the program it will create a database directory
-    create_database_dir()
-
 
 def check_database():
     # If the database directory don't exist this function will create one, else pass
@@ -29,6 +25,7 @@ def check_database():
 
     # If the require tables are not created, these functions will create them
     cur.execute(create_venv_info_sql)
+    cur.execute(create_venv_log_sql)
     con.close()
 
 # It is RECOMMENDED to use this function to safely connect to the database

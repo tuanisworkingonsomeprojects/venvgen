@@ -19,26 +19,7 @@ from .system_check import get_this_project_version, refresh_check, check_dir_con
 from .ANSI_line_modification import *
 import inquirer
 from inquirer.themes import GreenPassion
-
-
-# if __name__ != '__main__':
-#     print('\n\n\n\n\n\n\n\n\n')
-#     print('Checking UI system...')
-#     check_ui_library()
-#     import inquirer
-#     from inquirer.themes import GreenPassion
-
-#     print('Checking Operating System...')
-#     if check_system() == 'macos':
-#         # from utils.macos_system_control import *
-#         from ..OS_control.macos_system_control import *
-#     elif check_system() == 'win':
-#         # from utils.window_system_control import *
-#         from ..OS_control.window_system_control import *
-#     # from utils.ANSI_line_modification import *
-#     from .ANSI_line_modification import *
     
-
 def test_name():
     print(__name__)
 

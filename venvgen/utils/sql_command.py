@@ -2,16 +2,23 @@ create_venv_info_sql = '''
 CREATE TABLE IF NOT EXISTS venv_info(
     id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     project_path VARCHAR(300) NOT NULL,
-    venv_name VARCHAR(200) UNIQUE,
+    venv_name VARCHAR(200) NOT NULL,
     created_date DATE NOT NULL,
     requirement_file VARCHAR(300),
     connect_status VARCHAR(20) NOT NULL,
-    last_modified DATETIME NOT NULL
+    last_modified DATETIME NOT NULL,
+    UNIQUE(project_path, venv_name)
 );
 '''
 
 create_venv_log_sql = '''
-
+CREATE TABLE IF NOT EXISTS venv_log(
+    id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    venv_id INTEGER NOT NULL,
+    modify_type VARCHAR(20) NOT NULL,
+    modify_time DATETIME NOT NULL,
+    FOREIGN KEY (venv_id) REFERENCES venv_info(id)
+);
 '''
 
 insert_into_venv_info_sql = '''
