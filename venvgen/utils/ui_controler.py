@@ -19,26 +19,7 @@ from .system_check import get_this_project_version, refresh_check, check_dir_con
 from .ANSI_line_modification import *
 import inquirer
 from inquirer.themes import GreenPassion
-
-
-# if __name__ != '__main__':
-#     print('\n\n\n\n\n\n\n\n\n')
-#     print('Checking UI system...')
-#     check_ui_library()
-#     import inquirer
-#     from inquirer.themes import GreenPassion
-
-#     print('Checking Operating System...')
-#     if check_system() == 'macos':
-#         # from utils.macos_system_control import *
-#         from ..OS_control.macos_system_control import *
-#     elif check_system() == 'win':
-#         # from utils.window_system_control import *
-#         from ..OS_control.window_system_control import *
-#     # from utils.ANSI_line_modification import *
-#     from .ANSI_line_modification import *
     
-
 def test_name():
     print(__name__)
 
@@ -193,7 +174,7 @@ def create_new_project_screen(first_time = True, step: Literal['project_director
         return libraries
     
 
-def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv'] = None, *arg, **kwargs):
+def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv', 'display_latest_create_date'] = None, *arg, **kwargs):
     introduction_screen()
     print_current_page('menu > view venv details')
     print(f'         {get_color_str('View VENV Details', 'GREEN')}            ')
