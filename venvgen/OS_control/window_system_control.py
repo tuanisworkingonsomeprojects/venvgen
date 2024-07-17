@@ -33,3 +33,6 @@ def activate_venv(project_directory, venv):
 
 def install_system_library(library):
     subprocess.run(['pip', 'install', library], shell = True)
+
+def check_venv(project_directory, venv):
+    return os.path.exists(f'{project_directory}/{venv}/bin/activate')

@@ -1,3 +1,5 @@
+from typing import Literal
+
 ANSI_color_dict = {
     'RED': '91',
     'GREEN': '32',
@@ -8,7 +10,7 @@ ANSI_color_dict = {
     'WHITE': '37'
 }
 
-def get_color_str(text: str, color: str) -> str:
+def get_color_str(text: str, color: Literal['RED', 'GREEN', 'BLUE', 'YELLOW', 'MANGRETA', 'BRIGHT WHITE', 'WHITE']) -> str:
     START = f'\33[{ANSI_color_dict[color]}m'
     END   = '\33[m'
     return START + text + END

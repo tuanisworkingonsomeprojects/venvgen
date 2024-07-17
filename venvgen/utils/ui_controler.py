@@ -174,7 +174,7 @@ def create_new_project_screen(first_time = True, step: Literal['project_director
         return libraries
     
 
-def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv', 'display_latest_create_date'] = None, *arg, **kwargs):
+def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv', 'display_latest_create_date', 'display_with_filter', 'input_no_of_rows_latest_create', 'input_no_of_rows_latest_modified', 'display_latest_modified_time'] = None, *arg, **kwargs):
     introduction_screen()
     print_current_page('menu > view venv details')
     print(f'         {get_color_str('View VENV Details', 'GREEN')}            ')
@@ -183,7 +183,7 @@ def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'di
     if step == 'view_venv_menu':
         view_choice = [inquirer.List('view_choice', message = 'Options', choices = [
             '1. View All Venv',
-            '2. View All Venv (Sorted by Recently Created Venv)',
+            '2. View Venv (with Filter)',
             '3. View A Venv Details',
             '4. Edit Venv',
             '5. Back'
@@ -204,17 +204,167 @@ def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'di
         print(f'<-- Press Enter to go back to {get_color_str('view venv details', 'MANGRETA')} menu.')
         input()
 
+    elif step == 'display_with_filter':
+        introduction_screen()
+        print_current_page('menu > view venv details > view venv (filtered)')
+        view_filter_choice = [inquirer.List('view_filter_choice', message = 'Options', choices = [
+            '1. View by Latest Created Day',
+            '2. View by Latest Modified Time',
+            '3. View by Earliest Created Day',
+            '4. View by Earliest Modified Time',
+            '5. Back'
+        ], default = '1. View All Venv')]
+
+        user_answer = inquirer.prompt(view_filter_choice, theme = GreenPassion())['view_filter_choice']
+        return user_answer[0]
+
+
+    elif step == 'input_no_of_rows_latest_create':
+        valid_answer = False
+
+        while not valid_answer:
+            introduction_screen()
+            print_current_page('menu > view venv details > view venv (filtered) > view latest created date')
+            print(get_color_str('- Please input the number of rows you want to be displayed', 'GREEN'))
+            print(get_color_str('- Default is 10 (press Enter in your answer)', 'GREEN'))
+            print()
+
+            if not first_time:
+                print(get_color_str('Please input a valid answer', 'RED'))
+
+            first_time = False
+
+            try:
+                no_of_rows = input('Number of Rows to be Displayed (Default 10): ')
+                if no_of_rows == '' or no_of_rows == None:
+                    return 10
+                else:
+                    no_of_rows = int(no_of_rows)
+                return no_of_rows
+            except ValueError:
+                pass
+
     elif step == 'display_latest_create_date':
         introduction_screen()
-        print_current_page('menu > view venv details > view all venv (sorted by latest created date)')
-        print(f'  {get_color_str('View All VENV (Sorted By Latest Created Date)', 'GREEN')}            ')
+        print_current_page('menu > view venv details > view venv (filtered) > view latest created date')
+        print(f'       {get_color_str('View VENV (Sorted By Latest Created Date)', 'GREEN')}            ')
         print()
         print(kwargs['df'].to_markdown())
         print()
         print()
-        print(f'<-- Press Enter to go back to {get_color_str('view venv details', 'MANGRETA')} menu.')
+        print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
         input()
 
+    elif step == 'input_no_of_rows_latest_modified':
+        valid_answer = False
+
+        while not valid_answer:
+            introduction_screen()
+            print_current_page('menu > view venv details > view venv (filtered) > view latest modified time')
+            print(get_color_str('- Please input the number of rows you want to be displayed', 'GREEN'))
+            print(get_color_str('- Default is 10 (press Enter in your answer)', 'GREEN'))
+            print()
+
+            if not first_time:
+                print(get_color_str('Please input a valid answer', 'RED'))
+
+            first_time = False
+
+            try:
+                no_of_rows = input('Number of Rows to be Displayed (Default 10): ')
+                if no_of_rows == '' or no_of_rows == None:
+                    return 10
+                else:
+                    no_of_rows = int(no_of_rows)
+                return no_of_rows
+            except ValueError:
+                pass
+        
+    elif step == 'display_latest_modified_time':
+        introduction_screen()
+        print_current_page('menu > view venv details > view venv (filtered) > view latest modified time')
+        print(f'       {get_color_str('View VENV (Sorted By Latest Modified Time)', 'GREEN')}            ')
+        print()
+        print(kwargs['df'].to_markdown())
+        print()
+        print()
+        print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+        input()
+
+    elif step == 'input_no_of_rows_earliest_create':
+        valid_answer = False
+
+        while not valid_answer:
+            introduction_screen()
+            print_current_page('menu > view venv details > view venv (filtered) > view earliest created date')
+            print(get_color_str('- Please input the number of rows you want to be displayed', 'GREEN'))
+            print(get_color_str('- Default is 10 (press Enter in your answer)', 'GREEN'))
+            print()
+
+            if not first_time:
+                print(get_color_str('Please input a valid answer', 'RED'))
+
+            first_time = False
+
+            try:
+                no_of_rows = input('Number of Rows to be Displayed (Default 10): ')
+                if no_of_rows == '' or no_of_rows == None:
+                    return 10
+                else:
+                    no_of_rows = int(no_of_rows)
+                return no_of_rows
+            except ValueError:
+                pass
+
+    elif step == 'display_earliest_create_date':
+        introduction_screen()
+        print_current_page('menu > view venv details > view venv (filtered) > view earliest created date')
+        print(f'       {get_color_str('View VENV (Sorted By Earliest Created Date)', 'GREEN')}            ')
+        print()
+        print(kwargs['df'].to_markdown())
+        print()
+        print()
+        print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+        input()
+
+
+    elif step == 'input_no_of_rows_earliest_modified':
+        valid_answer = False
+
+        while not valid_answer:
+            introduction_screen()
+            print_current_page('menu > view venv details > view venv (filtered) > view earliest modified time')
+            print(get_color_str('- Please input the number of rows you want to be displayed', 'GREEN'))
+            print(get_color_str('- Default is 10 (press Enter in your answer)', 'GREEN'))
+            print()
+
+            if not first_time:
+                print(get_color_str('Please input a valid answer', 'RED'))
+
+            first_time = False
+
+            try:
+                no_of_rows = input('Number of Rows to be Displayed (Default 10): ')
+                if no_of_rows == '' or no_of_rows == None:
+                    return 10
+                else:
+                    no_of_rows = int(no_of_rows)
+                return no_of_rows
+            except ValueError:
+                pass
+        
+    elif step == 'display_earliest_modified_time':
+        introduction_screen()
+        print_current_page('menu > view venv details > view venv (filtered) > view earliest modified time')
+        print(f'       {get_color_str('View VENV (Sorted By Earliest Modified Time)', 'GREEN')}            ')
+        print()
+        print(kwargs['df'].to_markdown())
+        print()
+        print()
+        print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+        input()
+
+    
 
 
 
