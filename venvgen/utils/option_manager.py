@@ -9,7 +9,8 @@ from .database_manager import (
     select_top_latest_create_data_venv_view,
     select_top_latest_modified_data_venv_view,
     select_top_earliest_create_data_venv_view,
-    select_top_earliest_modified_data_venv_view
+    select_top_earliest_modified_data_venv_view,
+    select_specific_venv
 )
 from datetime import date, datetime
 from .package_directory_manager import get_database_dir, get_database_path
@@ -154,8 +155,13 @@ def option2_2(display_function, con):
     return False
 
 def option2_3(display_function, con):
-    
-    pass
+    venv_id = display_function(first_time = True, step = 'input_venv_id')
+    if venv_id == GO_BACK_TO_VIEW_VENV:
+        return False
+    else:
+        venv_detail = pd.read_sql(select_specific_venv.replace('?', str(venv_id)), con)
+        display_function(first_time = True, step = 'display_specific_venv', df = venv_detail)
+
 
 def option2(display_function, *args, **kwargs):
     refresh_check()
@@ -181,7 +187,7 @@ def option2(display_function, *args, **kwargs):
         
 
         elif user_choice == '3':
-            return False
+            to_main_menu = option2_3(display_function, con)
         
         elif user_choice == '4':
             return False

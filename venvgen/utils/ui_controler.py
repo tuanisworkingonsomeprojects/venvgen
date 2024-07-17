@@ -364,7 +364,44 @@ def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'di
         print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
         input()
 
-    
+    elif step == 'input_venv_id':
+
+        valid_answer = False
+
+        while not valid_answer:
+            introduction_screen()
+            print_current_page('menu > view venv details > venv details')
+            print(get_color_str('- Please input the venv id', 'GREEN'))
+            print(get_color_str('- The id must be an integer', 'GREEN'))
+            print(get_color_str('- Type "back" to go back to view venv', 'GREEN'))
+            print()
+
+            if not first_time:
+                print(get_color_str('Please input a valid answer', 'RED'))
+
+            first_time = False
+
+            try:
+                venv_id = input('VENV id: ')
+                if venv_id == 'back':
+                    return GO_BACK_TO_VIEW_VENV
+                else:
+                    venv_id = int(venv_id)
+                    return venv_id
+            except ValueError:
+                pass
+
+    elif step == 'display_specific_venv':
+        introduction_screen()
+        print_current_page('menu > view venv details > venv details')
+        print()
+        print(kwargs['df'].to_markdown())
+        print()
+        print()
+        print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+        input()
+
+
 
 
 

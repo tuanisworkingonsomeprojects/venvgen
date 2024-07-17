@@ -126,3 +126,14 @@ FROM   venv_info
 ORDER BY last_modified
 LIMIT ?;
 '''
+
+select_specific_venv = '''
+SELECT id AS [VENV ID],
+       venv_name AS [VENV],
+       created_date AS [CREATED DATE],
+       connect_status AS [CONNECTION STATUS,
+       project_path AS [PROJECT DIR],
+       last_modified AS [LAST MODIFIED]
+FROM   venv_info
+WHERE  id = ?;
+'''
