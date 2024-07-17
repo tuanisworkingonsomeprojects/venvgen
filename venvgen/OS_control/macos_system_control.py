@@ -22,3 +22,6 @@ def activate_venv(project_directory, venv):
 
 def install_system_library(library):
     os.system(f'pip install {library}')
+
+def check_venv(project_directory, venv):
+    return os.path.exists(f'{project_directory}/{venv}/bin/activate')

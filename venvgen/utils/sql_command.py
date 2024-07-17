@@ -35,7 +35,8 @@ WHERE venv_name = ?;
 
 
 select_all_venv_view = '''
-SELECT venv_name as [VENV],
+SELECT id AS [VENV ID],
+       venv_name AS [VENV],
        created_date AS [CREATED DATE],
        connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
@@ -44,7 +45,8 @@ FROM   venv_info;
 '''
 
 select_latest_create_date_venv_view = '''
-SELECT venv_name as [VENV],
+SELECT id AS [VENV ID],
+       venv_name as [VENV],
        created_date AS [CREATED DATE],
        connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],

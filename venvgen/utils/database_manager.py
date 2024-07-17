@@ -51,13 +51,15 @@ def update_data_venv_info(*args, **kwargs):
 
 def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
     con = connect_check_database()
-    cur = con.cursor()
+    cur = con.cursor() 
     result = cur.execute(select_all_venv_view)
     venv_info = result.fetchall()
     for i in range(len(venv_info)):
-        venv_name, _, connect_status, project_path, _ = venv_info[i]
-        code_status = system_control.activate_venv(project_path, venv_name)
-        if code_status != 0 and connect_status != get_color_str('no', 'RED'):
+        _, venv_name, _, connect_status, project_path, _ = venv_info[i]
+        # code_status = system_control.activate_venv(project_path, venv_name)
+        # if code_status != 0 and connect_status != get_color_str('no', 'RED'):
+        #     update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_name = venv_name, last_modified = datetime.now())
+        if not system_control.check_venv(project_path, venv_name) and connect_status != get_color_str('no', 'RED'):
             update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_name = venv_name, last_modified = datetime.now())
     con.close()
 
