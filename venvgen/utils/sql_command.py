@@ -83,7 +83,7 @@ select_top_latest_create_data_venv_view = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
-       connect_status AS [CONNECTION STATUS,
+       connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
        last_modified AS [LAST MODIFIED]
 FROM   venv_info
@@ -95,7 +95,7 @@ select_top_latest_modified_data_venv_view = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
-       connect_status AS [CONNECTION STATUS,
+       connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
        last_modified AS [LAST MODIFIED]
 FROM   venv_info
@@ -107,7 +107,7 @@ select_top_earliest_create_data_venv_view = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
-       connect_status AS [CONNECTION STATUS,
+       connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
        last_modified AS [LAST MODIFIED]
 FROM   venv_info
@@ -119,7 +119,7 @@ select_top_earliest_modified_data_venv_view = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
-       connect_status AS [CONNECTION STATUS,
+       connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
        last_modified AS [LAST MODIFIED]
 FROM   venv_info
@@ -131,7 +131,7 @@ select_specific_venv = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
-       connect_status AS [CONNECTION STATUS,
+       connect_status AS [CONNECTION STATUS],
        project_path AS [PROJECT DIR],
        last_modified AS [LAST MODIFIED]
 FROM   venv_info
