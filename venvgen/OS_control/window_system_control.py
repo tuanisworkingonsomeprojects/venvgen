@@ -11,7 +11,6 @@ def clear_screen():
     return_status = os.system(clear_screen_command)
 
 def create_venv(project_directory, project_name):
-    # project_directory = project_directory.replace('\\', '\\\\')
     subprocess.run(['cd', project_directory, 'python', '-m', 'venv', project_name], shell = True)
     
 
@@ -23,3 +22,6 @@ def install_libraries_with_requirement(project_directory, venv, requirement_file
 
 def activate_venv(project_directory, venv):
     return os.system(f'cd "{project_directory}"\n' + venv + '\\Scripts\\activate.bat\n')
+
+def install_system_library(library):
+    subprocess.run(['pip', 'install', library], shell = True)
