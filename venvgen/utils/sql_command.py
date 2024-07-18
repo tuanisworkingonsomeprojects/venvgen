@@ -1,4 +1,4 @@
-create_venv_info_sql = '''
+CREATE_VENV_INFO_SQL = '''
 CREATE TABLE IF NOT EXISTS venv_info(
     id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     project_path VARCHAR(300) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS venv_info(
 );
 '''
 
-create_venv_log_sql = '''
+CREATE_VENV_LOG_SQL = '''
 CREATE TABLE IF NOT EXISTS venv_log(
     id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     venv_id INTEGER NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS venv_log(
 );
 '''
 
-create_venv_insert_trigger_log_sql = '''
+CREATE_VENV_INSERT_TRIGGER_LOG_SQL = '''
 CREATE TRIGGER IF NOT EXISTS venv_insert_info_trigger
 AFTER INSERT ON venv_info
 FOR EACH ROW
@@ -32,7 +32,7 @@ BEGIN
 END;
 '''
 
-create_venv_update_status_trigger_log_sql = '''
+CREATE_VENV_UPDATE_STATUS_TRIGGER_LOG_SQL = '''
 CREATE TRIGGER IF NOT EXISTS venv_status_update_trigger
 AFTER UPDATE OF connect_status ON venv_info
 FOR EACH ROW
@@ -44,21 +44,19 @@ END;
 
 
 
-
-insert_into_venv_info_sql = '''
+INSERT_INTO_VENV_INFO_SQL = '''
 INSERT INTO venv_info(project_path, venv_name, created_date, requirement_file, connect_status, last_modified) 
 VALUES (?, ?, ?, ?, ?, ?);
 '''
 
-update_connect_status_venv_info_sql = '''
+UPDATE_CONNECT_STATUS_VENV_INFO_SQL = '''
 UPDATE venv_info
 SET connect_status = ?,
     last_modified = ?
 WHERE id = ?;
 '''
 
-
-select_all_venv_view = '''
+SELECT_ALL_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -68,7 +66,7 @@ SELECT id AS [VENV ID],
 FROM   venv_info;
 '''
 
-select_latest_create_date_venv_view = '''
+SELECT_LATEST_CREATE_DATE_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -79,7 +77,7 @@ FROM   venv_info
 ORDER BY created_date DESC;
 '''
 
-select_top_latest_create_data_venv_view = '''
+SELECT_TOP_LATEST_CREATE_DATA_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -91,7 +89,7 @@ ORDER BY created_date DESC
 LIMIT ?;
 '''
 
-select_top_latest_modified_data_venv_view = '''
+SELECT_TOP_LATEST_MODIFIED_DATA_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -103,7 +101,7 @@ ORDER BY last_modified DESC
 LIMIT ?;
 '''
 
-select_top_earliest_create_data_venv_view = '''
+SELECT_TOP_EARLIEST_CREATE_DATA_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -115,7 +113,7 @@ ORDER BY created_date
 LIMIT ?;
 '''
 
-select_top_earliest_modified_data_venv_view = '''
+SELECT_TOP_EARLIEST_MODIFIED_DATA_VENV_VIEW = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],
@@ -127,7 +125,7 @@ ORDER BY last_modified
 LIMIT ?;
 '''
 
-select_specific_venv = '''
+SELECT_SPECIFIC_VENV_SQL = '''
 SELECT id AS [VENV ID],
        venv_name AS [VENV],
        created_date AS [CREATED DATE],

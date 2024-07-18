@@ -5,11 +5,11 @@ from .system_control_protocol import *
 from .database_manager import (
     connect_check_database, 
     insert_data_into_venv_info, 
-    select_all_venv_view,
-    select_top_latest_create_data_venv_view,
-    select_top_latest_modified_data_venv_view,
-    select_top_earliest_create_data_venv_view,
-    select_top_earliest_modified_data_venv_view,
+    select_all_venv,
+    select_top_latest_create_data_venv,
+    select_top_latest_modified_data_venv,
+    select_top_earliest_create_data_venv,
+    select_top_earliest_modified_data_venv,
     select_specific_venv
 )
 from datetime import date, datetime
@@ -96,39 +96,31 @@ def option1(display_function, *args, **kwargs):
 
 def option2_1(display_function, con):
     refresh_check()
-    all_venv_df = pd.read_sql(select_all_venv_view, con)
+    all_venv_df = select_all_venv()
     display_function(first_time = True, step = 'display_all_venv', df = all_venv_df)
     return False
     
 def option2_2_1(display_function, con):
-    no_of_row = display_function(first_time = True, step = 'input_no_of_rows_latest_create')
-    no_of_row_str = str(no_of_row)
-
-    latest_create_venv_df = pd.read_sql(select_top_latest_create_data_venv_view.replace('?', no_of_row_str), con)
+    no_of_rows = display_function(first_time = True, step = 'input_no_of_rows_latest_create')
+    latest_create_venv_df = select_top_latest_create_data_venv(no_of_rows)
     display_function(first_time = True, step = 'display_latest_create_date', df = latest_create_venv_df)
     return False
 
 def option2_2_2(display_function, con):
-    no_of_row = display_function(first_time = True, step = 'input_no_of_rows_latest_modified')
-    no_of_row_str = str(no_of_row)
-
-    latest_modified_venv_df = pd.read_sql(select_top_latest_modified_data_venv_view.replace('?', no_of_row_str), con)
+    no_of_rows = display_function(first_time = True, step = 'input_no_of_rows_latest_modified')
+    latest_modified_venv_df = select_top_latest_modified_data_venv(no_of_rows)
     display_function(first_time = True, step = 'display_latest_modified_time', df = latest_modified_venv_df)
     return False
 
 def option2_2_3(display_function, con):
-    no_of_row = display_function(first_time = True, step = 'input_no_of_rows_earliest_create')
-    no_of_row_str = str(no_of_row)
-
-    earliest_create_venv_df = pd.read_sql(select_top_earliest_create_data_venv_view.replace('?', no_of_row_str), con)
+    no_of_rows = display_function(first_time = True, step = 'input_no_of_rows_earliest_create')
+    earliest_create_venv_df = select_top_earliest_create_data_venv(no_of_rows)
     display_function(first_time = True, step = 'display_earliest_create_date', df = earliest_create_venv_df)
     return False
 
 def option2_2_4(display_function, con):
-    no_of_row = display_function(first_time = True, step = 'input_no_of_rows_earliest_modified')
-    no_of_row_str = str(no_of_row)
-
-    earliest_modified_venv_df = pd.read_sql(select_top_earliest_modified_data_venv_view.replace('?', no_of_row_str), con)
+    no_of_rows = display_function(first_time = True, step = 'input_no_of_rows_earliest_modified')
+    earliest_modified_venv_df = select_top_earliest_modified_data_venv(no_of_rows)
     display_function(first_time = True, step = 'display_earliest_modified_time', df = earliest_modified_venv_df)
     return False
 
@@ -159,12 +151,17 @@ def option2_3(display_function, con):
     if venv_id == GO_BACK_TO_VIEW_VENV:
         return False
     else:
-        venv_detail = pd.read_sql(select_specific_venv.replace('?', str(venv_id)), con)
+        venv_detail = select_specific_venv(venv_id)
         display_function(first_time = True, step = 'display_specific_venv', df = venv_detail)
 
 
 def option2_4(display_function, con):
-    pass
+    venv_id = display_function(first_time = True, step = 'input_venv_for_edit')
+
+    if venv_id == GO_BACK_TO_VIEW_VENV:
+        return False
+    else:
+        pass
 
 def option2(display_function, *args, **kwargs):
     refresh_check()

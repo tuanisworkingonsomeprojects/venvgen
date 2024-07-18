@@ -17,21 +17,21 @@ venv_info(id, project_path, venv_name, created_date, requirement_file, connect_s
 
 '''
 
-def check_database():
+def check_database() -> None:
     # If the database directory don't exist this function will create one, else pass
     create_database_dir()
     con = sqlite3.connect(get_database_path())
     cur = con.cursor()
 
     # If the require tables are not created, these functions will create them
-    cur.execute(create_venv_info_sql)
-    cur.execute(create_venv_log_sql)
-    cur.execute(create_venv_insert_trigger_log_sql)
-    cur.execute(create_venv_update_status_trigger_log_sql)
+    cur.execute(CREATE_VENV_INFO_SQL)
+    cur.execute(CREATE_VENV_LOG_SQL)
+    cur.execute(CREATE_VENV_INSERT_TRIGGER_LOG_SQL)
+    cur.execute(CREATE_VENV_UPDATE_STATUS_TRIGGER_LOG_SQL)
     con.close()
 
 # It is RECOMMENDED to use this function to safely connect to the database
-def connect_check_database():
+def connect_check_database() -> sqlite3.Connection:
     # This will return the connection to the database but it will check if the database is availabe first
 
     check_database()
@@ -41,20 +41,20 @@ def connect_check_database():
 def insert_data_into_venv_info(*args, **kwargs):
     con = connect_check_database()
     cur = con.cursor()
-    cur.execute(insert_into_venv_info_sql, (kwargs['project_path'], kwargs['venv_name'], kwargs['created_date'], kwargs['requirement_file'], kwargs['connect_status'], kwargs['last_modified']))
+    cur.execute(INSERT_INTO_VENV_INFO_SQL, (kwargs['project_path'], kwargs['venv_name'], kwargs['created_date'], kwargs['requirement_file'], kwargs['connect_status'], kwargs['last_modified']))
     con.commit()
 
 def update_data_venv_info(*args, **kwargs):
     con = connect_check_database()
     cur = con.cursor()
-    cur.execute(update_connect_status_venv_info_sql, (kwargs['connect_status'], kwargs['last_modified'], kwargs['venv_id']))
+    cur.execute(UPDATE_CONNECT_STATUS_VENV_INFO_SQL, (kwargs['connect_status'], kwargs['last_modified'], kwargs['venv_id']))
     con.commit()
 
 
 def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
     con = connect_check_database()
     cur = con.cursor() 
-    result = cur.execute(select_all_venv_view)
+    result = cur.execute(SELECT_ALL_VENV_SQL)
     venv_info = result.fetchall()
     for i in range(len(venv_info)):
         venv_id, venv_name, _, connect_status, project_path, _ = venv_info[i]
@@ -65,3 +65,48 @@ def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
             update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_id = venv_id, last_modified = datetime.now())
     con.close()
 
+def select_all_venv():
+    con = connect_check_database()
+    df = pd.read_sql(SELECT_ALL_VENV_SQL, con)
+    con.close()
+    return df
+
+def select_top_latest_create_data_venv(no_of_rows: int) -> pd.DataFrame:
+    con = connect_check_database()
+    no_of_rows = str(no_of_rows)
+
+    df = pd.read_sql(SELECT_TOP_LATEST_CREATE_DATA_VENV_SQL.replace('?', no_of_rows), con)
+    con.close()
+    return df
+
+def select_top_latest_modified_data_venv(no_of_rows: int) -> pd.DataFrame:
+    con = connect_check_database()
+    no_of_rows = str(no_of_rows)
+
+    df = pd.read_sql(SELECT_TOP_LATEST_MODIFIED_DATA_VENV_SQL.replace('?', no_of_rows), con)
+    con.close()
+    return df
+
+def select_top_earliest_create_data_venv(no_of_rows: int) -> pd.DataFrame:
+    con = connect_check_database()
+    no_of_rows = str(no_of_rows)
+
+    df = pd.read_sql(SELECT_TOP_EARLIEST_CREATE_DATA_VENV_SQL.replace('?', no_of_rows), con)
+    con.close()
+    return df
+
+def select_top_earliest_modified_data_venv(no_of_rows: int) -> pd.DataFrame:
+    con = connect_check_database()
+    no_of_rows = str(no_of_rows)
+
+    df = pd.read_sql(SELECT_TOP_EARLIEST_MODIFIED_DATA_VENV_VIEW.replace('?', no_of_rows), con)
+    con.close()
+    return df
+
+def select_specific_venv(venv_id: int) -> pd.DataFrame:
+    con = connect_check_database()
+    venv_id = str(venv_id)
+
+    df = pd.read_sql(SELECT_SPECIFIC_VENV_SQL.replace('?', venv_id), con)
+    con.close()
+    return df
