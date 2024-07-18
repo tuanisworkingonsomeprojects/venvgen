@@ -163,6 +163,9 @@ def option2_3(display_function, con):
         display_function(first_time = True, step = 'display_specific_venv', df = venv_detail)
 
 
+def option2_4(display_function, con):
+    pass
+
 def option2(display_function, *args, **kwargs):
     refresh_check()
     con = connect_check_database()
