@@ -135,3 +135,11 @@ SELECT id AS [VENV ID],
 FROM   venv_info
 WHERE  id = ?;
 '''
+
+SELECT_PROJECT_DIR_AND_VENV_SQL = '''
+SELECT project_path AS [PROJECT DIR],
+       venv_name AS [VENV]
+FROM   venv_info
+WHERE  project_path = ? AND
+       venv_name = ?;
+'''

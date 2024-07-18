@@ -110,3 +110,13 @@ def select_specific_venv(venv_id: int) -> pd.DataFrame:
     df = pd.read_sql(SELECT_SPECIFIC_VENV_SQL.replace('?', venv_id), con)
     con.close()
     return df
+
+def check_project_dir_and_venv(project_dir, venv):
+    con = connect_check_database()
+    cur = con.cursor()
+    result = cur.execute(SELECT_PROJECT_DIR_AND_VENV_SQL, (project_dir, venv))
+    project_venv = result.fetchall()
+    if len(project_venv) > 0:
+        return True
+    else:
+        return False
