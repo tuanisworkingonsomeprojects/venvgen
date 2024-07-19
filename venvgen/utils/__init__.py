@@ -1,3 +1,8 @@
+from .check_os import check_os
+
+OS = check_os()
+
+
 from .depedencies_check import check_dependencies
 check_dependencies()
 
@@ -10,10 +15,9 @@ print('Importing system check...', end = '                                      
 
 # OS = system_check.check_os()
 
-from .system_check import init_check, check_os
+from .system_check import init_check, check_dir_connectivity, check_project_dir_and_venv, check_libraries
 
 # init_check()
-OS = check_os()
 
 
 # print('Importing system control...', end = '                                          \r')

@@ -2,9 +2,10 @@ from ..general.ui_helper import introduction_screen, print_current_page
 from ..general.sha256_generator import sha256_generator
 from ..general.ANSI_color import get_color_str
 from ..general.ANSI_line_modification import GO_UP_ONE_LINE
-from ..general.system_control_protocol import GO_BACK_TO_MENU_PAGE, NO_REQUIREMENTS_FILE
+from ..general.system_control_protocol import GO_BACK_TO_MENU_PAGE, NO_REQUIREMENTS_FILE, NO_LIBRARIES
+from ..general.string_processing import str_to_list, list_to_str
 
-from ..utils.system_check import check_dir_connectivity, check_project_dir_and_venv
+from ..utils.system_check import check_dir_connectivity, check_project_dir_and_venv, check_libraries
 
 OPTION1_NAVIGATION = 'menu > create new venv'
 
@@ -175,12 +176,67 @@ def input_libraries(project_directory, venv_name, requirement_file):
         print(f'Project Directory: {project_directory}')
         print(f'Project Name / Venv Name: {venv_name}')
         print(f'Libraries / Dependencies in requirements.txt (Y/n): N')
+        yes_no_libraries = input('Set Up Venv with Libraries (Y/n): ')
+
+        if yes_no_libraries == sha_256_str:
+            return GO_BACK_TO_MENU_PAGE
         
+        if yes_no_libraries not in ('Y', 'y', 'N', 'n'):
+            yes_no_libraries = None
+
+    if yes_no_libraries == 'N' or yes_no_libraries == 'n':
+        return NO_LIBRARIES
+        
+    if yes_no_libraries == 'Y' or yes_no_libraries == 'y':
+
+        first_time = True
+        libraries = None
+        valid_libraries = True
+        available = None
+        not_available = None
+
+        while first_time or (not first_time and (not valid_libraries)):
+            print_option1_page()
+
+            if not first_time and not valid_libraries:
+                not_available = list_to_str(not_available, sep = ', ')
+                print(get_color_str(f'These are not availabe libraries: {not_available}', 'RED'))
+                print(get_color_str('Please type in the libraries again: ', 'RED'))
+                not_available = None
+                available = None
 
 
+            first_time = False
+
+            sha_256_str = sha256_generator()
+            print(f'sha256: {sha_256_str}')
+            print('Paste this to your answer to go back to main menu')
+            print()
+            print(f'Project Directory: {project_directory}')
+            print(f'Project Name / Venv Name: {venv_name}')
+            print(f'Libraries / Dependencies in requirements.txt (Y/n): N')
+            print(f'Set Up Venv with Libraries (Y/n): {yes_no_libraries}')
+            libraries = input('Libraries (Separate by ","): ')
+
+            if libraries == None or libraries == '':
+                return NO_LIBRARIES
+            
+            elif libraries == sha_256_str:
+                return GO_BACK_TO_MENU_PAGE
+            
+            libraries = str_to_list(libraries)
+            available, not_available = check_libraries(libraries)
+
+            if len(not_available) > 0:
+                valid_libraries = False
+                libraries = None
+            else:
+                available = list_to_str(available, ' ')
+                return available
 
 
-def input_venv_info() -> tuple[str, str, str, str]:
+            
+def input_venv_info() -> tuple[str, str, str, list]:
 
     project_directory = input_project_directory()
     if project_directory == GO_BACK_TO_MENU_PAGE:
@@ -194,9 +250,12 @@ def input_venv_info() -> tuple[str, str, str, str]:
     if requirement_file == GO_BACK_TO_MENU_PAGE:
         return None, None, GO_BACK_TO_MENU_PAGE, None
 
-    libraries = input_libraries()
+    libraries = input_libraries(project_directory, venv_name, requirement_file)
+    if libraries == GO_BACK_TO_MENU_PAGE:
+        return None, None, None, GO_BACK_TO_MENU_PAGE
+    
 
-    return project_directory, venv_name, requirement_file, None
+    return project_directory, venv_name, requirement_file, libraries
 
 
 

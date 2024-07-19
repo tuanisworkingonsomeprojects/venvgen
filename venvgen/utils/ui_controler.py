@@ -13,6 +13,8 @@ from .system_control_protocol import *
 from .string_processing import *
 from typing import Literal
 
+from ..general.ui_helper import introduction_screen, print_current_page
+
 from . import OS
 from .ANSI_color import get_color_str
 from .system_check import get_this_project_version, refresh_check, check_dir_connectivity
@@ -23,155 +25,25 @@ from inquirer.themes import GreenPassion
 def test_name():
     print(__name__)
 
-def introduction_screen():
-    refresh_check()
-    OS.clear_screen()
-    print('_______________________________________')
-    print(f'        {get_color_str('Python VENV Generator', 'GREEN')}     ')
-    print()
-    print(f' This Version:\t{get_this_project_version()}')
-    print(' Created By:\tNguyen Tuan')
-    print(f' Your OS:\t{OS.get_os_name()}')
-    print('_______________________________________')
+# def introduction_screen():
+#     refresh_check()
+#     OS.clear_screen()
+#     print('_______________________________________')
+#     print(f'        {get_color_str('Python VENV Generator', 'GREEN')}     ')
+#     print()
+#     print(f' This Version:\t{get_this_project_version()}')
+#     print(' Created By:\tNguyen Tuan')
+#     print(f' Your OS:\t{OS.get_os_name()}')
+#     print('_______________________________________')
 
 
-def print_current_page(current_page_name: str) -> None:
-    print(f'Current Page: ' + get_color_str(current_page_name, 'MANGRETA'))
-    print()
+# def print_current_page(current_page_name: str) -> None:
+#     print(f'Current Page: ' + get_color_str(current_page_name, 'MANGRETA'))
+#     print()
 
 
 def create_new_project_screen(first_time = True, step: Literal['project_directory', 'venv', 'requirement', 'library_manual_input'] = None, *args, **kwargs):
-    introduction_screen()
-    print_current_page('menu > create new venv')
-    print(f'            {get_color_str('Create New VENV', 'GREEN')}            ')
-    print()
-
-
-
-
-    if step == 'project_directory':
-        if not first_time:
-            print(f'{get_color_str('Please fill in the valid Directory Name', 'RED')}')
-        
-        sha_256_str = sha256_generator()
-        print(f'sha256: {sha_256_str}')
-        print('Paste this to your answer to go back to main menu')
-        print()
-        print()
-        print()
-        project_directory = input(f'Libraries / Dependencies in requirements.txt (Y/n):{GO_UP_ONE_LINE}Project Name / Venv Name:{GO_UP_ONE_LINE}Project Directory: ')
-        print()
-        print()
-        print()
-
-        if project_directory == sha_256_str:
-            return GO_BACK_TO_MENU_PAGE
-
-        else:
-            directory_exist = check_dir_connectivity(project_directory)
-            if directory_exist:
-                return project_directory
-            else:
-                return None
-
-
-    elif step == 'venv':
-
-
-        if not first_time:
-            print(f'{get_color_str('Please fill in the Venv Name', 'RED')}')
-        
-        sha_256_str = sha256_generator()
-        print(f'sha256: {sha_256_str}')
-        print('Paste this to your answer to go back to main menu')
-        print()
-        print('Project Directory: ' + kwargs['project_directory'])
-        print()
-        
-
-        project_name = input(f'Libraries / Dependencies in requirements.txt (Y/n):{GO_UP_ONE_LINE}Project Name / Venv Name: ')
-        print()
-        print()
-
-        if project_name == sha_256_str:
-            return GO_BACK_TO_MENU_PAGE
-        else:
-            return project_name
-        
-
-    elif step == 'requirement':
-        if not first_time:
-            print(f'{get_color_str('Please fill in the Valid Answer', 'RED')}')
-        
-        sha_256_str = sha256_generator()
-        print(f'sha256: {sha_256_str}')
-        print('Paste this to your answer to go back to main menu')
-        print()
-        print('Project Directory: ' + kwargs['project_directory'])
-        print('Project Name / Venv Name: ' + kwargs['venv'])
-        yes_no_requirement = input(f'Libraries / Dependencies in requirements.txt (Y/n): ')
-
-        if yes_no_requirement == sha_256_str:
-            return GO_BACK_TO_MENU_PAGE
-        
-        elif yes_no_requirement == 'Y' or yes_no_requirement == 'y':
-            requirement_path = input('requirements.txt path: ')
-            
-            if requirement_path == None or requirement_path == '':
-                return NO_REQUIREMENTS_FILE
-            elif requirement_path == sha_256_str:
-                return GO_BACK_TO_MENU_PAGE
-            else:
-                try:
-                    with open(requirement_path, 'r') as f:
-                        f.readline()
-                except FileNotFoundError as e:
-                    return None
-
-            return requirement_path
-        
-        elif yes_no_requirement == 'N' or yes_no_requirement == 'n':
-            return NO_REQUIREMENTS_FILE
-        
-        else:
-            return None
-        
-    elif step == 'library_manual_input':
-
-        if not first_time:
-            print(f'{get_color_str('Please fill in the Valid Answer', 'RED')}')
-        
-        sha_256_str = sha256_generator()
-        print(f'sha256: {sha_256_str}')
-        print('Paste this to your answer to go back to main menu')
-        print()
-        print('Project Directory: ' + kwargs['project_directory'])
-        print('Project Name / Venv Name: ' + kwargs['venv'])
-        print(f'Libraries / Dependencies in requirements.txt (Y/n): n')
-        yes_no_libraries = input('Set up venv with libraries (Y/n): ')
-
-        if yes_no_libraries == sha_256_str:
-            return GO_BACK_TO_MENU_PAGE
-        
-        elif yes_no_libraries == 'Y' or yes_no_libraries == 'y':
-            libraries = input('Libraries: ')
-
-            if libraries == None or libraries == '':
-                return NO_LIBRARIES
-            elif libraries == sha_256_str:
-                return GO_BACK_TO_MENU_PAGE
-
-            libraries = str_to_list(libraries)
-            libraries = list_to_str(libraries, sep = ' ')
-        
-        elif yes_no_libraries == 'N' or yes_no_libraries == 'n':
-            return NO_LIBRARIES
-
-        else:
-            return None
-
-
-        return libraries
+    pass
     
 
 def view_venv_info_screen(first_time = True, step: Literal['view_venv_menu', 'display_all_venv', 'display_latest_create_date', 'display_with_filter', 'input_no_of_rows_latest_create', 'input_no_of_rows_latest_modified', 'display_latest_modified_time'] = None, *arg, **kwargs):

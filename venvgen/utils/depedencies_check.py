@@ -63,3 +63,24 @@ def check_dependencies():
             print()
             print_color('Cannot process further due to the lack of library', 'RED')
             exit()
+
+    try:
+        import requests
+    except ModuleNotFoundError as e:
+        print()
+        print(f'{get_color_str('requests', 'RED')} module have not yet installed')
+        print()
+        print('Do you want to download it to your machine?')
+        print()
+        print('The library is Required for the program to run')
+        userChoice = input('Your choice (Y/n): ')
+        if userChoice == 'Y' or userChoice == 'y':
+            OS.install_system_library('requests')
+            print()
+            print('Please rerun the program after installation')
+            exit()        
+        else:
+            print()
+            print_color('Cannot process further due to the lack of library', 'RED')
+            exit()
+

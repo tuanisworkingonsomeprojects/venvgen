@@ -19,7 +19,7 @@ def sha256_generator():
 
 def menu_choice_process(user_answer, display_function):
     if user_answer == '1':
-        return option1(display_function[0], system_control = OS)
+        return option1(system_control = OS)
     elif user_answer == '2':
         return option2(display_function[1], system_control = OS)
 

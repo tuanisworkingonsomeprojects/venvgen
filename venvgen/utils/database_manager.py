@@ -43,12 +43,14 @@ def insert_data_into_venv_info(*args, **kwargs):
     cur = con.cursor()
     cur.execute(INSERT_INTO_VENV_INFO_SQL, (kwargs['project_path'], kwargs['venv_name'], kwargs['created_date'], kwargs['requirement_file'], kwargs['connect_status'], kwargs['last_modified']))
     con.commit()
+    con.close()
 
 def update_data_venv_info(*args, **kwargs):
     con = connect_check_database()
     cur = con.cursor()
     cur.execute(UPDATE_CONNECT_STATUS_VENV_INFO_SQL, (kwargs['connect_status'], kwargs['last_modified'], kwargs['venv_id']))
     con.commit()
+    con.close()
 
 
 def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
@@ -116,7 +118,9 @@ def check_project_dir_and_venv(project_dir, venv):
     cur = con.cursor()
     result = cur.execute(SELECT_PROJECT_DIR_AND_VENV_SQL, (project_dir, venv))
     project_venv = result.fetchall()
+    con.close()
     if len(project_venv) > 0:
         return True
     else:
         return False
+    
