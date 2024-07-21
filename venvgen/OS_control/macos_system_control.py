@@ -25,3 +25,6 @@ def install_system_library(library):
 
 def check_venv(project_directory, venv):
     return os.path.exists(f'{project_directory}/{venv}/bin/activate')
+
+def get_requirement(project_dir: str, venv: str) -> str:
+    return os.popen(f'cd "{project_dir}"\nsource "{venv}/bin/activate"\npip freeze\n').read()

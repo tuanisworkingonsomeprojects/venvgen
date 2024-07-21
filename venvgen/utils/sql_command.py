@@ -143,3 +143,24 @@ FROM   venv_info
 WHERE  project_path = ? AND
        venv_name = ?;
 '''
+
+SELECT_NEWEST_INSERT_VENV_ID_SQL = '''
+SELECT MAX(id)
+FROM   venv_info;
+'''
+
+UPDATE_REQUIREMENT_FILE_PATH_SQL = '''
+UPDATE venv_info
+SET    requirement_file = ?
+WHERE  id = ?;
+'''
+
+SELECT_SPECIFIC_VENV_CONNECTION_INFO_SQL = '''
+SELECT id,
+       venv_name,
+       project_path,
+       connect_status,
+       requirement_file
+FROM   venv_info
+WHERE  id = ?;
+'''

@@ -4,7 +4,6 @@
 # from utils import macos_system_control as MacOS
 # from utils import window_system_control as Windows
 
-from . import OS
 # from .system_control_protocol import *
 from .option_manager import option1, option2
 import random
@@ -17,10 +16,10 @@ def sha256_generator():
 
     
 
-def menu_choice_process(user_answer, display_function):
+def menu_choice_process(user_answer):
     if user_answer == '1':
-        return option1(system_control = OS)
+        return option1()
     elif user_answer == '2':
-        return option2(display_function[1], system_control = OS)
+        return option2()
 
 

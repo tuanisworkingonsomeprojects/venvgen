@@ -1,17 +1,28 @@
 from .ANSI_color import get_color_str, print_color
-from .database_manager import check_database, check_venv_connection, check_project_dir_and_venv
+
+# All of the imported functions that are not used in this module will be used by the other modules that import this module
+from .database_manager import (
+    check_database, 
+    check_venv_connection, 
+    check_project_dir_and_venv, 
+    check_venv_existence_with_id, 
+    get_specific_venv_connection
+)
+from .requirement_manager import check_requirement
 from ..venvgen_version import __version__
 from .depedencies_check import check_os
 
 import os
 import requests
 
-
+# TODO: This function may need to be deleted
 def init_check():
     check_database()
+    check_requirement()
 
 def refresh_check():
     check_venv_connection(check_os())
+    check_requirement()
 
 def get_this_project_version() -> str:
     return __version__
@@ -49,6 +60,7 @@ def check_libraries(libraries: list) -> tuple[list, list]:
 
 
         print(f'Progress: |{percentage_bar}{remaining_bar}| {percentage_100:.2f}%', end = '\r')
-        
+
     print()
     return available, not_available
+
