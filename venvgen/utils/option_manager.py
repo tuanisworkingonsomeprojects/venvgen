@@ -1,7 +1,7 @@
 
 from ..general.system_control_protocol import *
 from ..general.ANSI_color import *
-from ..optionui_modules import option1ui, option2ui
+from ..optionui_modules import option1ui, option2ui, option3ui
 
 from .database_manager import (
     insert_data_into_venv_info, 
@@ -13,7 +13,11 @@ from .database_manager import (
     select_specific_venv,
     update_requirement,
     update_data_venv_info,
-    insert_install_edit_venv_log
+    insert_install_edit_venv_log,
+    insert_unistall_edit_venv_log,
+    select_all_log,
+    select_latest_log,
+    select_earliest_log
 )
 
 from .requirement_manager import requirement_generator, update_install_requirement
@@ -33,7 +37,6 @@ from . import OS
 
 
 def option1():
-    refresh_check()
 
     project_directory, venv_name, requirement_file, libraries = option1ui.input_venv_info()
     if GO_BACK_TO_MENU_PAGE in (project_directory, venv_name, requirement_file, libraries):
@@ -145,7 +148,8 @@ def option2_3():
 
 def option2_4():
     option2_4_lookup_table = {
-        '1': option2ui.venv_edit_install_library
+        '1': option2ui.venv_edit_install_library,
+        '2': option2ui.venv_edit_uninstall_library
     }
 
 
@@ -181,12 +185,15 @@ def option2_4():
 
                 OS.install_libraries(project_dir, venv_name, libraries)
                 insert_install_edit_venv_log(venv_id)
-                venv_id, requirement_path = update_install_requirement(venv_id)
+                update_install_requirement(venv_id)
                 return False
             elif user_choice == '2':
-                pass
+                OS.uninstall_libraries(project_dir, venv_name, libraries)
+                insert_unistall_edit_venv_log(venv_id)
+                update_install_requirement(venv_id)
+                return False
             
-            
+
 
 
 
@@ -195,7 +202,6 @@ def option2_4():
         
 
 def option2():
-    refresh_check()
     
     option2_lookup_table = {
         '1': option2_1,
@@ -213,3 +219,34 @@ def option2():
         to_main_menu = option2_lookup_table[user_choice]()
         
     return False
+
+def option3():
+
+    
+    to_main_menu = False
+
+    while not to_main_menu:
+        user_choice = option3ui.display_log_menu()
+        
+        if user_choice == '1':
+            all_log = select_all_log()
+            to_main_menu = option3ui.display_all_log(all_log)
+        elif user_choice == '2':
+            no_of_rows = option3ui.input_number_of_row_latest_log()
+            latest_log = select_latest_log(no_of_rows)
+            to_main_menu = option3ui.display_latest_log(latest_log)
+        elif user_choice == '3':
+            no_of_rows = option3ui.input_number_of_row_earliest_log()
+            earliest_log = select_earliest_log(no_of_rows)
+            to_main_menu = option3ui.display_earliest_log(earliest_log)
+        elif user_choice == '4':
+            to_main_menu = True
+
+    return False
+
+
+
+    
+
+
+

@@ -239,7 +239,7 @@ def venv_edit_install_library(venv_id):
             print(get_color_str('Please insert the libraries name!', 'RED'))
 
         if not first_time and is_installed:
-            print(get_color_str('The libraries has been installed already!', 'RED'))
+            print(get_color_str('The libraries have been installed already!', 'RED'))
 
 
         first_time = False
@@ -276,6 +276,70 @@ def venv_edit_install_library(venv_id):
             else:
                 available = list_to_str(available, ' ')
                 return available
+            
+def venv_edit_uninstall_library(venv_id):
+    first_time: bool = True
+    no_library: bool = True
+    valid_libraries: bool = True
+    is_not_installed: bool = False
+
+
+    available: list = None
+    not_available: list = None
+
+    while first_time or (not first_time and (not valid_libraries or no_library or is_not_installed)):
+        libraries = None
+        print_option2_page(OPTION2_4_NAVIGATION, OPTION2_4_HEADER)
+        print(get_color_str('- Please type "back" to go back to the view venv details', 'GREEN'))
+
+        if not first_time and not valid_libraries:
+            not_available = list_to_str(not_available, sep = ', ')
+            print(get_color_str(f'These are not availabe libraries: {not_available}', 'RED'))
+            print(get_color_str('Please type in the libraries again: ', 'RED'))
+            not_available = None
+            available = None
+
+        if not first_time and no_library:
+            print(get_color_str('Please insert the libraries name!', 'RED'))
+
+        if not first_time and is_not_installed:
+            print(get_color_str('The libraries have NOT been installed yet!', 'RED'))
+
+
+        first_time = False
+
+        libraries = input('Libraries (Separate by ","): ')
+
+
+        
+        if libraries == 'back':
+            return GO_BACK_TO_VIEW_VENV
+        
+        if libraries == '' or libraries == None:
+            no_library = True
+            valid_libraries = True
+            is_not_installed = False
+        
+            
+        if libraries != '' and libraries != None:
+            no_library = False
+
+            libraries = str_to_list(libraries)
+            available, not_available = check_libraries(libraries)
+
+            if len(not_available) > 0:
+                valid_libraries = False
+                libraries = None
+                is_not_installed = False
+
+            elif len(check_installed_libraries(venv_id, available)[1]) > 0:
+                is_not_installed = True
+                no_library = False
+                valid_libraries = True
+            
+            else:
+                available = list_to_str(available, ' ')
+                return available
 
 
 
@@ -291,5 +355,5 @@ def venv_edit_install_library(venv_id):
 
 
 
-def input_install_venv_library():
-    print_option2_page(OPTION2_4_NAVIGATION, OPTION2_4_HEADER)
+# def input_install_venv_library():
+#     print_option2_page(OPTION2_4_NAVIGATION, OPTION2_4_HEADER)

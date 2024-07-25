@@ -28,3 +28,6 @@ def check_venv(project_directory, venv):
 
 def get_requirement(project_dir: str, venv: str) -> str:
     return os.popen(f'cd "{project_dir}"\nsource "{venv}/bin/activate"\npip freeze\n').read()
+
+def uninstall_libraries(project_directory, venv, libraries):
+    os.system(f'cd "{project_directory}"\nsource {venv}/bin/activate\npip uninstall {libraries} -y')

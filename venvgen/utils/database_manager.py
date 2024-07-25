@@ -170,3 +170,34 @@ def insert_install_edit_venv_log(venv_id):
     con.commit()
     con.close()
 
+def select_all_venv_list() -> list[tuple]:
+    con = connect_check_database()
+    cur = con.cursor()
+    result = cur.execute(SELECT_ALL_VENV_SQL)
+    venv_info = result.fetchall()
+    return venv_info
+
+def insert_unistall_edit_venv_log(venv_id):
+    con = connect_check_database()
+    cur = con.cursor()
+    cur.execute(INSERT_UNINSTALL_LIBRARY_LOG_SQL, (venv_id,))
+    con.commit()
+    con.close()
+
+def select_all_log():
+    con = connect_check_database()
+    df = pd.read_sql(SELECT_ALL_LOG_SQL, con)
+    con.close()
+    return df
+
+def select_latest_log(no_of_rows):
+    con = connect_check_database()
+    df = pd.read_sql(SELECT_LATEST_LOG_SQL.replace('?', str(no_of_rows)), con)
+    con.close()
+    return df
+
+def select_earliest_log(no_of_rows):
+    con = connect_check_database()
+    df = pd.read_sql(SELECT_EARLIEST_LOG_SQL.replace('?', str(no_of_rows)), con)
+    con.close()
+    return df

@@ -5,7 +5,7 @@
 # from utils import window_system_control as Windows
 
 # from .system_control_protocol import *
-from .option_manager import option1, option2
+from .option_manager import option1, option2, option3
 import random
 import hashlib
 
@@ -21,5 +21,7 @@ def menu_choice_process(user_answer):
         return option1()
     elif user_answer == '2':
         return option2()
+    elif user_answer == '3':
+        return option3()
 
 

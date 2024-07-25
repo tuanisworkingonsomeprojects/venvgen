@@ -169,3 +169,40 @@ INSERT_INSTALL_LIBRARY_LOG_SQL = '''
 INSERT INTO venv_log(venv_id, modify_type, modify_time, modified_by)
 VALUES (?, 'INSTALL LIBRARIES', DATETIME('now', 'localtime'), 'USER');
 '''
+
+INSERT_UNINSTALL_LIBRARY_LOG_SQL = '''
+INSERT INTO venv_log(venv_id, modify_type, modify_time, modified_by)
+VALUES (?, 'UNINSTALL LIBRARIES', DATETIME('now', 'localtime'), 'USER');
+'''
+
+SELECT_ALL_LOG_SQL = '''
+SELECT id AS [LOG ID],
+       venv_id AS [AFFECTED VENV ID],
+       modify_type AS [TYPE OF MODIFICATION],
+       modify_time AS [TIME OF MODIFICATION],
+       modified_by AS [MODIFIED BY]
+FROM   venv_log;
+'''
+
+SELECT_LATEST_LOG_SQL = '''
+SELECT id AS [LOG ID],
+       venv_id AS [AFFECTED VENV ID],
+       modify_type AS [TYPE OF MODIFICATION],
+       modify_time AS [TIME OF MODIFICATION],
+       modified_by AS [MODIFIED BY]
+FROM   venv_log
+ORDER BY id DESC
+LIMIT ?;
+'''
+
+SELECT_EARLIEST_LOG_SQL = '''
+SELECT id AS [LOG ID],
+       venv_id AS [AFFECTED VENV ID],
+       modify_type AS [TYPE OF MODIFICATION],
+       modify_time AS [TIME OF MODIFICATION],
+       modified_by AS [MODIFIED BY]
+FROM   venv_log
+ORDER BY id
+LIMIT ?;
+'''
+
