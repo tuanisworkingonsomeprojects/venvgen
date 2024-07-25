@@ -63,7 +63,7 @@ def check_venv_connection(system_control: types.ModuleType, *args, **kwargs):
         # if code_status != 0 and connect_status != get_color_str('no', 'RED'):
         #     update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_name = venv_name, last_modified = datetime.now())
         if not system_control.check_venv(project_path, venv_name) and connect_status != get_color_str('no', 'RED'):
-            update_data_venv_info(con, connect_status = get_color_str('no', 'RED'), venv_id = venv_id, last_modified = datetime.now())
+            update_data_venv_info(connect_status = get_color_str('no', 'RED'), venv_id = venv_id, last_modified = datetime.now())
         elif system_control.check_venv(project_path, venv_name):
             pass
     con.close()
@@ -149,7 +149,7 @@ def check_venv_existence_with_id(venv_id):
     else:
         return False
     
-def get_specific_venv_connection(venv_id):
+def get_specific_venv_connection(venv_id) -> tuple[bool, str, str, str, str]:
     con = connect_check_database()
     cur = con.cursor() 
     result = cur.execute(SELECT_SPECIFIC_VENV_CONNECTION_INFO_SQL, (venv_id,))
@@ -162,3 +162,11 @@ def get_specific_venv_connection(venv_id):
         return False, project_path, venv_name, requirement_file
     else:
         return True, project_path, venv_name, requirement_file
+    
+def insert_install_edit_venv_log(venv_id):
+    con = connect_check_database()
+    cur = con.cursor()
+    cur.execute(INSERT_INSTALL_LIBRARY_LOG_SQL, (venv_id,))
+    con.commit()
+    con.close()
+

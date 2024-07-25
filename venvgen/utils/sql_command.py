@@ -164,3 +164,8 @@ SELECT id,
 FROM   venv_info
 WHERE  id = ?;
 '''
+
+INSERT_INSTALL_LIBRARY_LOG_SQL = '''
+INSERT INTO venv_log(venv_id, modify_type, modify_time, modified_by)
+VALUES (?, 'INSTALL LIBRARIES', DATETIME('now', 'localtime'), 'USER');
+'''

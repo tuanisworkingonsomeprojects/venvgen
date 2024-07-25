@@ -12,10 +12,11 @@ from .database_manager import (
     select_top_earliest_modified_data_venv,
     select_specific_venv,
     update_requirement,
-    update_data_venv_info
+    update_data_venv_info,
+    insert_install_edit_venv_log
 )
 
-from .requirement_manager import requirement_generator
+from .requirement_manager import requirement_generator, update_install_requirement
 
 from .system_check import refresh_check, get_specific_venv_connection
 
@@ -143,6 +144,11 @@ def option2_3():
 
 
 def option2_4():
+    option2_4_lookup_table = {
+        '1': option2ui.venv_edit_install_library
+    }
+
+
     venv_id = option2ui.input_venv_id_for_edit()
 
     if venv_id == GO_BACK_TO_VIEW_VENV:
@@ -157,9 +163,31 @@ def option2_4():
             
 
         #TODO: create an option2ui.venv_edit
-
+        # create an option2ui.venv_edit_menu
         else:
-            pass
+            user_choice = option2ui.venv_edit_menu()
+
+            
+
+            libraries = option2_4_lookup_table[user_choice](venv_id)
+            
+            if libraries == GO_BACK_TO_VIEW_VENV:
+                return False
+            elif user_choice == '1':
+                # print(venv_id, project_dir, venv_name)
+                # input()
+
+
+
+                OS.install_libraries(project_dir, venv_name, libraries)
+                insert_install_edit_venv_log(venv_id)
+                venv_id, requirement_path = update_install_requirement(venv_id)
+                return False
+            elif user_choice == '2':
+                pass
+            
+            
+
 
 
     
