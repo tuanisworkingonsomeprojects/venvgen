@@ -166,3 +166,7 @@ venvgen/database
 
 
 ProjectGenerator/*
+
+# Windows Ignore
+
+/venvgen/requirements
