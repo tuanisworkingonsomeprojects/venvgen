@@ -25,4 +25,9 @@ in the terminal and the program will start running.
 - 2.0.0: Windows user now can use the program properly (not fully tested, may cause unexpected bug)
 
 # Developer Note
-- Software compatibility with these Operating Systems: MacOS, Window. (Linux is not tested or tried to run yet).
+- Software compatibility with these Operating Systems: MacOS, Windows. (Linux is not tested or tried to run yet).
+- Python version compatibility: Python 3.12.3. (lower version will yield error since the f-string format does not work, this may be fixed in the future).
+
+# Note for Windows Users
+- Please install the package on to your main python environment, as the numpy in the virtual environment has undetermined behaviours and cannot be fixed. I will try to find a way to work around. Until then, please use `pip install venvgen` on your main environment.
+- Ensure that the library and the main python environment is correctly added to your PATH (environment variable).
