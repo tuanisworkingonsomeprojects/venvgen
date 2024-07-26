@@ -1,6 +1,6 @@
 from ..general.ui_helper import introduction_screen, print_current_page
 from ..general.sha256_generator import sha256_generator
-from ..general.ANSI_color import get_color_str
+from ..utils.ANSI_color import get_color_str
 from ..general.ANSI_line_modification import GO_UP_ONE_LINE
 from ..general.system_control_protocol import GO_BACK_TO_MENU_PAGE, NO_REQUIREMENTS_FILE, NO_LIBRARIES
 from ..general.string_processing import str_to_list, list_to_str

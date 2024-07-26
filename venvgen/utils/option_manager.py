@@ -1,6 +1,6 @@
 
 from ..general.system_control_protocol import *
-from ..general.ANSI_color import *
+from .ANSI_color import *
 from ..optionui_modules import option1ui, option2ui, option3ui
 
 from .database_manager import (
@@ -227,7 +227,7 @@ def option3():
 
     while not to_main_menu:
         user_choice = option3ui.display_log_menu()
-        
+
         if user_choice == '1':
             all_log = select_all_log()
             to_main_menu = option3ui.display_all_log(all_log)
