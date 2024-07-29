@@ -170,3 +170,4 @@ ProjectGenerator/*
 # Windows Ignore
 
 /venvgen/requirements
+venvgen/requirements/1.txt
