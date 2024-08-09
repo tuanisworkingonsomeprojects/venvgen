@@ -7,7 +7,7 @@ def introduction_screen():
     refresh_check()
     OS.clear_screen()
     print('_______________________________________')
-    print(f'        {get_color_str('Python VENV Generator', 'GREEN')}     ')
+    print(f'        {get_color_str("Python VENV Generator", "GREEN")}     ')
     print()
     print(f' This Version:\t{get_this_project_version()}')
     print(' Created By:\tNguyen Tuan')

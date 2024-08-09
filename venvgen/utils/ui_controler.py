@@ -14,7 +14,7 @@ from inquirer.themes import GreenPassion
 
 
 def menu_screen():
-    print(f'              {get_color_str('MENU', 'GREEN')}                     ')
+    print(f'              {get_color_str("MENU", "GREEN")}                     ')
     print()
     menu_choice = [inquirer.List('menu_choice', message = 'Options', choices = [
         '1. Create New Project',

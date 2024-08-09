@@ -13,7 +13,7 @@ OPTION1_NAVIGATION = 'menu > create new venv'
 def print_option1_page():
     introduction_screen()
     print_current_page(OPTION1_NAVIGATION)
-    print(f'            {get_color_str('Create New VENV', 'GREEN')}            ')
+    print(f'            {get_color_str("Create New VENV", "GREEN")}            ')
     print()
 
 
@@ -26,7 +26,7 @@ def input_project_directory() -> str:
         print_option1_page()
 
         if not first_time:
-            print(f'{get_color_str('Please fill in the valid Directory Name', 'RED')}')
+            print(f'{get_color_str("Please fill in the valid Directory Name", "RED")}')
 
         first_time = False
         
@@ -63,10 +63,10 @@ def input_venv_name(project_directory) -> str:
         print_option1_page()
         
         if not first_time and (venv_name == None or venv_name == ''):
-            print(f'{get_color_str('Please fill in the Venv Name', 'RED')}')
+            print(f'{get_color_str("Please fill in the Venv Name", "RED")}')
 
         if not first_time and not valid_project_dir_and_venv:
-            print(f'{get_color_str('You CANNOT create the same VENV in the same Project Directory', 'RED')}')
+            print(f'{get_color_str("You CANNOT create the same VENV in the same Project Directory", "RED")}')
 
         first_time = False
     
@@ -96,7 +96,7 @@ def input_requirement_file(project_directory, venv_name) -> str:
         print_option1_page()
 
         if not first_time:
-            print(f'{get_color_str('Please fill in the Valid Answer', 'RED')}')
+            print(f'{get_color_str("Please fill in the Valid Answer", "RED")}')
 
         first_time = False
 
@@ -127,7 +127,7 @@ def input_requirement_file(project_directory, venv_name) -> str:
             print_option1_page()
 
             if not first_time:
-                print(f'{get_color_str('Please fill in the Valid Requirement File Path', 'RED')}')
+                print(f'{get_color_str("Please fill in the Valid Requirement File Path", "RED")}')
 
             first_time = False
 
@@ -165,7 +165,7 @@ def input_libraries(project_directory, venv_name, requirement_file):
         print_option1_page()
 
         if not first_time:
-            print(f'{get_color_str('Please fill in the Valid Answer', 'RED')}')
+            print(f'{get_color_str("Please fill in the Valid Answer", "RED")}')
 
         first_time = False
 

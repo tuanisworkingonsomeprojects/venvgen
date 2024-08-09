@@ -19,10 +19,10 @@ OPTION3_1_NAVIGATION   = f'{OPTION3_NAVIGATION} > view all logs'
 OPTION3_2_NAVIGATION   = f'{OPTION3_NAVIGATION} > view latest logs'
 OPTION3_3_NAVIGATION   = f'{OPTION3_NAVIGATION} > view earliest logs'
 
-OPTION3_HEADER     = f'           {get_color_str('View Logs', 'GREEN')}'
-OPTION3_1_HEADER   = f'         {get_color_str('View All Logs', 'GREEN')}'
-OPTION3_2_HEADER   = f'       {get_color_str('View Latest Logs', 'GREEN')}'
-OPTION3_3_HEADER   = f'      {get_color_str('View Earliest Logs', 'GREEN')}'
+OPTION3_HEADER     = f'           {get_color_str("View Logs", "GREEN")}'
+OPTION3_1_HEADER   = f'         {get_color_str("View All Logs", "GREEN")}'
+OPTION3_2_HEADER   = f'       {get_color_str("View Latest Logs", "GREEN")}'
+OPTION3_3_HEADER   = f'      {get_color_str("View Earliest Logs", "GREEN")}'
 
 
 def print_option3_page(navigation: str, header: str):
@@ -74,7 +74,7 @@ def display_df(navigation: str, header: str, df: pd.DataFrame):
     print(df.to_markdown())
     print()
     print()
-    print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+    print(f'<-- Press Enter to go back to {get_color_str("view venv filters", "MANGRETA")} menu.')
     input()
 
 

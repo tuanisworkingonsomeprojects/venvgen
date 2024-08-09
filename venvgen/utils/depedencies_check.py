@@ -8,7 +8,7 @@ def check_dependencies():
         import inquirer
     except ModuleNotFoundError as e:
         print()
-        print(f'{get_color_str('inquirer', 'RED')} module have not yet installed')
+        print(f'{get_color_str("inquirer", "RED")} module have not yet installed')
         print()
         print('Do you want to download it to your machine?')
         print()
@@ -28,7 +28,7 @@ def check_dependencies():
         import pandas
     except ModuleNotFoundError as e:
         print()
-        print(f'{get_color_str('pandas', 'RED')} module have not yet installed')
+        print(f'{get_color_str("pandas", "RED")} module have not yet installed')
         print()
         print('Do you want to download it to your machine?')
         print()
@@ -48,7 +48,7 @@ def check_dependencies():
         import tabulate
     except ModuleNotFoundError as e:
         print()
-        print(f'{get_color_str('tabulate', 'RED')} module have not yet installed')
+        print(f'{get_color_str("tabulate", "RED")} module have not yet installed')
         print()
         print('Do you want to download it to your machine?')
         print()
@@ -68,7 +68,7 @@ def check_dependencies():
         import requests
     except ModuleNotFoundError as e:
         print()
-        print(f'{get_color_str('requests', 'RED')} module have not yet installed')
+        print(f'{get_color_str("requests", "RED")} module have not yet installed')
         print()
         print('Do you want to download it to your machine?')
         print()

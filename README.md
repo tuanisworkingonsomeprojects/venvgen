@@ -23,10 +23,10 @@ in the terminal and the program will start running.
 - 0.0.4: Update the code structure and checking system.
 - 1.0.0: A full version for MacOS (not fully tested, may cause unexpected bug)
 - 2.0.0: Windows user now can use the program properly (not fully tested, may cause unexpected bug)
+- 2.0.9: Supported all python 3 version. (The lower version support fixed)
 
 # Developer Note
 - Software compatibility with these Operating Systems: MacOS, Windows. (Linux is not tested or tried to run yet).
-- Python version compatibility: Python 3.12.3. (lower version will yield error since the f-string format does not work, this may be fixed in the future).
 
 # Note for Windows Users
 - Please install the package on to your main python environment, as the numpy in the virtual environment has undetermined behaviours and cannot be fixed. I will try to find a way to work around. Until then, please use `pip install venvgen` on your main environment.

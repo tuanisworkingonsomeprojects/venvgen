@@ -25,15 +25,15 @@ OPTION2_3_NAVIGATION   = f'{OPTION2_NAVIGATION} > venv details'
 OPTION2_4_NAVIGATION   = f'{OPTION2_NAVIGATION} > venv edit'
 
 
-OPTION2_HEADER     = f'          {get_color_str('View Venv Details', 'GREEN')}'
-OPTION2_1_HEADER   = f'            {get_color_str('View All VENV', 'GREEN')}'
-OPTION2_2_HEADER   = f'         {get_color_str('View Venv (filtered)', 'GREEN')}'
-OPTION2_2_1_HEADER = f'   {get_color_str('View VENV (Sorted By Latest Created Date)', 'GREEN')}'
-OPTION2_2_2_HEADER = f'   {get_color_str('View VENV (Sorted By Latest Modified Time)', 'GREEN')}'
-OPTION2_2_3_HEADER = f'  {get_color_str('View VENV (Sorted By Earliest Created Date)', 'GREEN')}'
-OPTION2_2_4_HEADER = f'  {get_color_str('View VENV (Sorted By Earliest Modified Time)', 'GREEN')}'
-OPTION2_3_HEADER   = f'         {get_color_str('View Specific VENV Details', 'GREEN')}'
-OPTION2_4_HEADER   = f'           {get_color_str('Venv Edit', 'GREEN')}'
+OPTION2_HEADER     = f'          {get_color_str("View Venv Details", "GREEN")}'
+OPTION2_1_HEADER   = f'            {get_color_str("View All VENV", "GREEN")}'
+OPTION2_2_HEADER   = f'         {get_color_str("View Venv (filtered)", "GREEN")}'
+OPTION2_2_1_HEADER = f'   {get_color_str("View VENV (Sorted By Latest Created Date)", "GREEN")}'
+OPTION2_2_2_HEADER = f'   {get_color_str("View VENV (Sorted By Latest Modified Time)", "GREEN")}'
+OPTION2_2_3_HEADER = f'  {get_color_str("View VENV (Sorted By Earliest Created Date)", "GREEN")}'
+OPTION2_2_4_HEADER = f'  {get_color_str("View VENV (Sorted By Earliest Modified Time)", "GREEN")}'
+OPTION2_3_HEADER   = f'         {get_color_str("View Specific VENV Details", "GREEN")}'
+OPTION2_4_HEADER   = f'           {get_color_str("Venv Edit", "GREEN")}'
 
 
 def print_option2_page(navigation: str, header: str):
@@ -62,7 +62,7 @@ def display_all_view(df: pd.DataFrame):
     print(df.to_markdown())
     print()
     print()
-    print(f'<-- Press Enter to go back to {get_color_str('view venv details', 'MANGRETA')} menu.')
+    print(f'<-- Press Enter to go back to {get_color_str("view venv details", "MANGRETA")} menu.')
     input()
 
 def display_with_filter_menu():
@@ -110,7 +110,7 @@ def display_df(navigation: str, header: str, df: pd.DataFrame):
     print(df.to_markdown())
     print()
     print()
-    print(f'<-- Press Enter to go back to {get_color_str('view venv filters', 'MANGRETA')} menu.')
+    print(f'<-- Press Enter to go back to {get_color_str("view venv filters", "MANGRETA")} menu.')
     input()
 
 
@@ -182,7 +182,7 @@ def display_specific_view(df: pd.DataFrame):
     print(df.to_markdown())
     print()
     print()
-    print(f'<-- Press Enter to go back to {get_color_str('view venv details', 'MANGRETA')} menu.')
+    print(f'<-- Press Enter to go back to {get_color_str("view venv details", "MANGRETA")} menu.')
     input()
 
 def input_venv_id_for_edit():
