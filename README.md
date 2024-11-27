@@ -16,8 +16,6 @@ venvgen
 ```
 in the terminal and the program will start running.
 
-# NOT WORKING NOTICE:
-- This library is no longer working under MacOS 18 and Windows 11. The developer is currently busy with the school work. This library will be fixed soon. Stay tune!
 
 ## Release Note
 - 0.0.1: Beta version, buggy, just can use the first option only.
